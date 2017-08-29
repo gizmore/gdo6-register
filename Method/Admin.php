@@ -2,7 +2,7 @@
 namespace GDO\Register\Method;
 
 use GDO\Admin\MethodAdmin;
-use GDO\Register\UserActivation;
+use GDO\Register\GDO_UserActivation;
 use GDO\Table\MethodQueryTable;
 use GDO\UI\GDT_Button;
 
@@ -18,12 +18,12 @@ final class Admin extends MethodQueryTable
 
 	public function getQuery()
 	{
-		return UserActivation::table()->select('*');
+		return GDO_UserActivation::table()->select('*');
 	}
 	
 	public function getHeaders()
 	{
-		$gdo = UserActivation::table();
+		$gdo = GDO_UserActivation::table();
 		return array(
 			GDT_Button::make('btn_activate'),
 			$gdo->gdoColumn('ua_time'),

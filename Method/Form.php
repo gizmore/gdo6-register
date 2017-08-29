@@ -12,13 +12,13 @@ use GDO\Mail\GDT_Email;
 use GDO\Mail\Mail;
 use GDO\Net\GDT_IP;
 use GDO\Register\Module_Register;
-use GDO\Register\UserActivation;
+use GDO\Register\GDO_UserActivation;
 use GDO\Template\Message;
 use GDO\Type\GDT_Base;
 use GDO\Type\GDT_Checkbox;
 use GDO\Type\GDT_Password;
 use GDO\User\GDT_Username;
-use GDO\User\User;
+use GDO\User\GDO_User;
 use GDO\Form\GDT_Validator;
 
 class Form extends MethodForm
@@ -57,20 +57,20 @@ class Form extends MethodForm
 	{
 		$ip = GDO::quoteS(GDT_IP::current());
 		$cut = time() - Module_Register::instance()->cfgMaxUsersPerIPTimeout();
-		$count = User::table()->countWhere("user_register_ip={$ip} AND user_register_time>{$cut}");
+		$count = GDO_User::table()->countWhere("user_register_ip={$ip} AND user_register_time>{$cut}");
 		$max = Module_Register::instance()->cfgMaxUsersPerIP();
 		return $count < $max ? true : $field->error('err_ip_signup_max_reached', [$max]);
 	}
 	
 	public function validateUniqueUsername(GDT_Form $form, GDT_Username $username, $value)
 	{
-	    $existing = User::table()->getByName($value);
+	    $existing = GDO_User::table()->getByName($value);
 		return $existing ? $username->error('err_username_taken') : true;
 	}
 
 	public function validateUniqueEmail(GDT_Form $form, GDT_Email $email, $value)
 	{
-		$count = User::table()->countWhere("user_email={$email->quotedValue()}");
+		$count = GDO_User::table()->countWhere("user_email={$email->quotedValue()}");
 		return $count === 0 ? true : $email->error('err_email_taken');
 	}
 	
@@ -91,7 +91,7 @@ class Form extends MethodForm
 	{
 		$module = Module_Register::instance();
 		
-		$activation = UserActivation::table()->blank($form->getFormData());
+		$activation = GDO_UserActivation::table()->blank($form->getFormData());
 		$activation->setVar('user_register_ip', GDT_IP::current());
 		$activation->save();
 		
@@ -105,7 +105,7 @@ class Form extends MethodForm
 		}
 	}
 	
-	public function onEmailActivation(UserActivation $activation)
+	public function onEmailActivation(GDO_UserActivation $activation)
 	{
 		$mail = new Mail();
 		$mail->setSubject(t('mail_activate_title', [sitename()]));

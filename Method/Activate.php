@@ -5,8 +5,8 @@ use GDO\Core\GDT_Hook;
 use GDO\Core\Method;
 use GDO\DB\GDO;
 use GDO\Register\Module_Register;
-use GDO\Register\UserActivation;
-use GDO\User\User;
+use GDO\Register\GDO_UserActivation;
+use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Login\Method\Form;
 
@@ -21,13 +21,13 @@ class Activate extends Method
 	{
 		$id = GDO::quoteS($id);
 		$token = GDO::quoteS($token);
-		if (!($activation = UserActivation::table()->findWhere("ua_id={$id} AND ua_token={$token}")))
+		if (!($activation = GDO_UserActivation::table()->findWhere("ua_id={$id} AND ua_token={$token}")))
 		{
 			return $this->error('err_no_activation');
 		}
 		$activation->delete();
 		
-		$user = User::table()->blank($activation->getGDOVars());
+		$user = GDO_User::table()->blank($activation->getGDOVars());
 		$user->setVars(array(
 			'user_type' => 'member',
 		));

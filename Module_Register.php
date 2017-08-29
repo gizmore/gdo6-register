@@ -1,15 +1,14 @@
 <?php
 namespace GDO\Register;
 
-use GDO\Core\Module;
+use GDO\Core\GDO_Module;
 use GDO\Date\GDT_Duration;
 use GDO\Net\GDT_Url;
 use GDO\Template\GDT_Bar;
 use GDO\Type\GDT_Checkbox;
 use GDO\Type\GDT_Int;
 use GDO\UI\GDT_Link;
-use GDO\User\Session;
-use GDO\User\User;
+use GDO\User\GDO_Session;
 use GDO\Form\GDT_Form;
 /**
  * Registration module.
@@ -18,13 +17,13 @@ use GDO\Form\GDT_Form;
  * @version 5.0
  * @since 1.0
  */
-class Module_Register extends Module
+class Module_Register extends GDO_Module
 {
 	##############
 	### Module ###
 	##############
 	public function isCoreModule() { return true; }
-	public function getClasses() { return array('GDO\Register\UserActivation'); }
+	public function getClasses() { return array('GDO\Register\GDO_UserActivation'); }
 	public function onLoadLanguage() { $this->loadLanguage('lang/register'); }
 	public function href_administrate_module() { return href('Register', 'Admin'); }
 
@@ -61,7 +60,7 @@ class Module_Register extends Module
 	################
 	public function hookRightBar(GDT_Bar $navbar)
 	{
-		if (Session::user()->isGhost())
+		if (GDO_Session::user()->isGhost())
 		{
 			$navbar->addField(GDT_Link::make('btn_register')->href($this->getMethodHREF('Form')));
 		}

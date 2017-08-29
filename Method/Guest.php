@@ -12,7 +12,7 @@ use GDO\Form\MethodForm;
 use GDO\Net\GDT_IP;
 use GDO\Register\Module_Register;
 use GDO\User\GDT_Username;
-use GDO\User\User;
+use GDO\User\GDO_User;
 use GDO\Form\GDT_Validator;
 
 class Guest extends MethodForm
@@ -41,7 +41,7 @@ class Guest extends MethodForm
 
 	public function validateGuestNameTaken(GDT_Form $form, GDT_Username $field, $value)
 	{
-	    if (User::table()->countWhere('user_guest_name='.quote($value)))
+	    if (GDO_User::table()->countWhere('user_guest_name='.quote($value)))
 	    {
 	        return $field->error('err_guest_name_taken');
 	    }
@@ -50,9 +50,9 @@ class Guest extends MethodForm
 	
 	public function formValidated(GDT_Form $form)
 	{
-		$user = User::table()->blank($form->getFormData());
+		$user = GDO_User::table()->blank($form->getFormData());
 		$user->setVars(array(
-			'user_type' => User::GUEST,
+			'user_type' => GDO_User::GUEST,
 			'user_register_ip' => GDT_IP::current(),
 			'user_register_time' => Time::getDate(),
 		));

@@ -11,7 +11,7 @@ use GDO\Type\GDT_Token;
 use GDO\User\GDT_Username;
 use GDO\Net\GDT_Url;
 
-class UserActivation extends GDO
+class GDO_UserActivation extends GDO
 {
 	public function gdoCached() { return false; }
 	public function gdoColumns()
