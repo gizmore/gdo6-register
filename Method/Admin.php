@@ -4,7 +4,7 @@ namespace GDO\Register\Method;
 use GDO\Admin\MethodAdmin;
 use GDO\Register\UserActivation;
 use GDO\Table\MethodQueryTable;
-use GDO\UI\GDO_Button;
+use GDO\UI\GDT_Button;
 
 final class Admin extends MethodQueryTable
 {
@@ -25,7 +25,7 @@ final class Admin extends MethodQueryTable
 	{
 		$gdo = UserActivation::table();
 		return array(
-			GDO_Button::make('btn_activate'),
+			GDT_Button::make('btn_activate'),
 			$gdo->gdoColumn('ua_time'),
 			$gdo->gdoColumn('user_name'),
 			$gdo->gdoColumn('user_register_ip'),

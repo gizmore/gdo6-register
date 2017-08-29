@@ -1,7 +1,7 @@
 <?php
 namespace GDO\Register\Method;
 
-use GDO\Core\GDO_Hook;
+use GDO\Core\GDT_Hook;
 use GDO\Core\Method;
 use GDO\DB\GDO;
 use GDO\Register\Module_Register;
@@ -35,7 +35,7 @@ class Activate extends Method
 		
 		$response = $this->message('msg_activated', [$user->displayName()]);
 		
-		GDO_Hook::call('UserActivated', $user);
+		GDT_Hook::call('UserActivated', $user);
 		
 		if (Module_Register::instance()->cfgActivationLogin())
 		{

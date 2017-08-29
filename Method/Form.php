@@ -1,25 +1,25 @@
 <?php
 namespace GDO\Register\Method;
 
-use GDO\Captcha\GDO_Captcha;
-use GDO\Core\GDO_Hook;
+use GDO\Captcha\GDT_Captcha;
+use GDO\Core\GDT_Hook;
 use GDO\DB\GDO;
-use GDO\Form\GDO_AntiCSRF;
-use GDO\Form\GDO_Form;
-use GDO\Form\GDO_Submit;
+use GDO\Form\GDT_AntiCSRF;
+use GDO\Form\GDT_Form;
+use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
-use GDO\Mail\GDO_Email;
+use GDO\Mail\GDT_Email;
 use GDO\Mail\Mail;
-use GDO\Net\GDO_IP;
+use GDO\Net\GDT_IP;
 use GDO\Register\Module_Register;
 use GDO\Register\UserActivation;
 use GDO\Template\Message;
-use GDO\Type\GDO_Base;
-use GDO\Type\GDO_Checkbox;
-use GDO\Type\GDO_Password;
-use GDO\User\GDO_Username;
+use GDO\Type\GDT_Base;
+use GDO\Type\GDT_Checkbox;
+use GDO\Type\GDT_Password;
+use GDO\User\GDT_Username;
 use GDO\User\User;
-use GDO\Form\GDO_Validator;
+use GDO\Form\GDT_Validator;
 
 class Form extends MethodForm
 {
@@ -27,59 +27,59 @@ class Form extends MethodForm
     
     public function getUserType() { return 'ghost'; }
 	
-	public function createForm(GDO_Form $form)
+	public function createForm(GDT_Form $form)
 	{
 		$module = Module_Register::instance();
-		$form->addField(GDO_Username::make('user_name')->required());
-		$form->addField(GDO_Validator::make()->validator('user_name', [$this, 'validateUniqueUsername']));
-		$form->addField(GDO_Validator::make()->validator('user_name', [$this, 'validateUniqueIP']));
-		$form->addField(GDO_Password::make('user_password')->required());
+		$form->addField(GDT_Username::make('user_name')->required());
+		$form->addField(GDT_Validator::make()->validator('user_name', [$this, 'validateUniqueUsername']));
+		$form->addField(GDT_Validator::make()->validator('user_name', [$this, 'validateUniqueIP']));
+		$form->addField(GDT_Password::make('user_password')->required());
 		if ($module->cfgEmailActivation())
 		{
-		    $form->addField(GDO_Email::make('user_email')->required());
-		    $form->addField(GDO_Validator::make()->validator('user_email', [$this, 'validateUniqueEmail']));
+		    $form->addField(GDT_Email::make('user_email')->required());
+		    $form->addField(GDT_Validator::make()->validator('user_email', [$this, 'validateUniqueEmail']));
 		}
 		if ($module->cfgTermsOfService())
 		{
-			$form->addField(GDO_Checkbox::make('tos')->required()->label('tos_label', [$module->cfgTosUrl()]));
+			$form->addField(GDT_Checkbox::make('tos')->required()->label('tos_label', [$module->cfgTosUrl()]));
 		}
 		if ($module->cfgCaptcha())
 		{
-			$form->addField(GDO_Captcha::make('captcha'));
+			$form->addField(GDT_Captcha::make('captcha'));
 		}
-		$form->addField(GDO_Submit::make()->label('btn_register'));
-		$form->addField(GDO_AntiCSRF::make());
+		$form->addField(GDT_Submit::make()->label('btn_register'));
+		$form->addField(GDT_AntiCSRF::make());
 		
-		GDO_Hook::call('RegisterForm', $form);
+		GDT_Hook::call('RegisterForm', $form);
 	}
 	
-	function validateUniqueIP(GDO_Form $form, GDO_Base $field)
+	function validateUniqueIP(GDT_Form $form, GDT_Base $field)
 	{
-		$ip = GDO::quoteS(GDO_IP::current());
+		$ip = GDO::quoteS(GDT_IP::current());
 		$cut = time() - Module_Register::instance()->cfgMaxUsersPerIPTimeout();
 		$count = User::table()->countWhere("user_register_ip={$ip} AND user_register_time>{$cut}");
 		$max = Module_Register::instance()->cfgMaxUsersPerIP();
 		return $count < $max ? true : $field->error('err_ip_signup_max_reached', [$max]);
 	}
 	
-	public function validateUniqueUsername(GDO_Form $form, GDO_Username $username, $value)
+	public function validateUniqueUsername(GDT_Form $form, GDT_Username $username, $value)
 	{
 	    $existing = User::table()->getByName($value);
 		return $existing ? $username->error('err_username_taken') : true;
 	}
 
-	public function validateUniqueEmail(GDO_Form $form, GDO_Email $email, $value)
+	public function validateUniqueEmail(GDT_Form $form, GDT_Email $email, $value)
 	{
 		$count = User::table()->countWhere("user_email={$email->quotedValue()}");
 		return $count === 0 ? true : $email->error('err_email_taken');
 	}
 	
-	public function formInvalid(GDO_Form $form)
+	public function formInvalid(GDT_Form $form)
 	{
 		return $this->error('err_register');
 	}
 	
-	public function formValidated(GDO_Form $form)
+	public function formValidated(GDT_Form $form)
 	{
 		return $this->onRegister($form);
 	}
@@ -87,12 +87,12 @@ class Form extends MethodForm
 	################
 	### Register ###
 	################
-	public function onRegister(GDO_Form $form)
+	public function onRegister(GDT_Form $form)
 	{
 		$module = Module_Register::instance();
 		
 		$activation = UserActivation::table()->blank($form->getFormData());
-		$activation->setVar('user_register_ip', GDO_IP::current());
+		$activation->setVar('user_register_ip', GDT_IP::current());
 		$activation->save();
 		
 		if ($module->cfgEmailActivation())

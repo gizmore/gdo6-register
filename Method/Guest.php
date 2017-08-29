@@ -1,19 +1,19 @@
 <?php
 namespace GDO\Register\Method;
 
-use GDO\Captcha\GDO_Captcha;
+use GDO\Captcha\GDT_Captcha;
 use GDO\Core\Application;
-use GDO\Core\GDO_Hook;
+use GDO\Core\GDT_Hook;
 use GDO\Date\Time;
-use GDO\Form\GDO_AntiCSRF;
-use GDO\Form\GDO_Form;
-use GDO\Form\GDO_Submit;
+use GDO\Form\GDT_AntiCSRF;
+use GDO\Form\GDT_Form;
+use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
-use GDO\Net\GDO_IP;
+use GDO\Net\GDT_IP;
 use GDO\Register\Module_Register;
-use GDO\User\GDO_Username;
+use GDO\User\GDT_Username;
 use GDO\User\User;
-use GDO\Form\GDO_Validator;
+use GDO\Form\GDT_Validator;
 
 class Guest extends MethodForm
 {
@@ -26,20 +26,20 @@ class Guest extends MethodForm
 		return Module_Register::instance()->cfgGuestSignup();
 	}
 	
-	public function createForm(GDO_Form $form)
+	public function createForm(GDT_Form $form)
 	{
-		$form->addField(GDO_Username::make('user_guest_name')->required());
-		$form->addField(GDO_Validator::make()->validator('user_guest_name', [$this, 'validateGuestNameTaken']));
+		$form->addField(GDT_Username::make('user_guest_name')->required());
+		$form->addField(GDT_Validator::make()->validator('user_guest_name', [$this, 'validateGuestNameTaken']));
 		if (Module_Register::instance()->cfgCaptcha())
 		{
-			$form->addField(GDO_Captcha::make());
+			$form->addField(GDT_Captcha::make());
 		}
-		$form->addField(GDO_Submit::make()->label('btn_signup_guest'));
-		$form->addField(GDO_AntiCSRF::make());
-		GDO_Hook::call('GuestForm', $form);
+		$form->addField(GDT_Submit::make()->label('btn_signup_guest'));
+		$form->addField(GDT_AntiCSRF::make());
+		GDT_Hook::call('GuestForm', $form);
 	}
 
-	public function validateGuestNameTaken(GDO_Form $form, GDO_Username $field, $value)
+	public function validateGuestNameTaken(GDT_Form $form, GDT_Username $field, $value)
 	{
 	    if (User::table()->countWhere('user_guest_name='.quote($value)))
 	    {
@@ -48,19 +48,19 @@ class Guest extends MethodForm
 	    return true;
 	}
 	
-	public function formValidated(GDO_Form $form)
+	public function formValidated(GDT_Form $form)
 	{
 		$user = User::table()->blank($form->getFormData());
 		$user->setVars(array(
 			'user_type' => User::GUEST,
-			'user_register_ip' => GDO_IP::current(),
+			'user_register_ip' => GDT_IP::current(),
 			'user_register_time' => Time::getDate(),
 		));
 		$user->insert();
 		
 		$authResponse = \GDO\Login\Method\Form::make()->loginSuccess($user);
 
-		GDO_Hook::call('UserActivated', $user);
+		GDT_Hook::call('UserActivated', $user);
 		
 		return $this->message('msg_registered_as_guest', [$user->displayName()])->add($authResponse);
 	}

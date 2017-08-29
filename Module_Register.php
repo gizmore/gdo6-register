@@ -2,15 +2,15 @@
 namespace GDO\Register;
 
 use GDO\Core\Module;
-use GDO\Date\GDO_Duration;
-use GDO\Net\GDO_Url;
-use GDO\Template\GDO_Bar;
-use GDO\Type\GDO_Checkbox;
-use GDO\Type\GDO_Int;
-use GDO\UI\GDO_Link;
+use GDO\Date\GDT_Duration;
+use GDO\Net\GDT_Url;
+use GDO\Template\GDT_Bar;
+use GDO\Type\GDT_Checkbox;
+use GDO\Type\GDT_Int;
+use GDO\UI\GDT_Link;
 use GDO\User\Session;
 use GDO\User\User;
-use GDO\Form\GDO_Form;
+use GDO\Form\GDT_Form;
 /**
  * Registration module.
  *
@@ -34,16 +34,16 @@ class Module_Register extends Module
 	public function getConfig()
 	{
 		return array(
-			GDO_Checkbox::make('captcha')->initial('0'),
-			GDO_Checkbox::make('guest_signup')->initial('1'),
-			GDO_Checkbox::make('email_activation')->initial('1'),
-		    GDO_Duration::make('email_activation_timeout')->initial('72600')->min(0)->max(31536000),
-		    GDO_Checkbox::make('admin_activation')->initial('0'),
-			GDO_Int::make('ip_signup_count')->initial('1')->min(0)->max(100),
-			GDO_Duration::make('ip_signup_duration')->initial('72600')->min(0)->max(31536000),
-			GDO_Checkbox::make('force_tos')->initial('1'),
-			GDO_Url::make('tos_url')->reachable()->allowLocal()->initial($this->getMethodHREF('TOS')),
-			GDO_Checkbox::make('activation_login')->initial('1'),
+			GDT_Checkbox::make('captcha')->initial('0'),
+			GDT_Checkbox::make('guest_signup')->initial('1'),
+			GDT_Checkbox::make('email_activation')->initial('1'),
+		    GDT_Duration::make('email_activation_timeout')->initial('72600')->min(0)->max(31536000),
+		    GDT_Checkbox::make('admin_activation')->initial('0'),
+			GDT_Int::make('ip_signup_count')->initial('1')->min(0)->max(100),
+			GDT_Duration::make('ip_signup_duration')->initial('72600')->min(0)->max(31536000),
+			GDT_Checkbox::make('force_tos')->initial('1'),
+			GDT_Url::make('tos_url')->reachable()->allowLocal()->initial($this->getMethodHREF('TOS')),
+			GDT_Checkbox::make('activation_login')->initial('1'),
 		);
 	}
 	public function cfgCaptcha() { return $this->getConfigValue('captcha'); }
@@ -59,28 +59,28 @@ class Module_Register extends Module
 	################
 	### Top Menu ###
 	################
-	public function hookRightBar(GDO_Bar $navbar)
+	public function hookRightBar(GDT_Bar $navbar)
 	{
 		if (Session::user()->isGhost())
 		{
-			$navbar->addField(GDO_Link::make('btn_register')->href($this->getMethodHREF('Form')));
+			$navbar->addField(GDT_Link::make('btn_register')->href($this->getMethodHREF('Form')));
 		}
 	}
 	
-	public function hookGuestForm(GDO_Form $form)
+	public function hookGuestForm(GDT_Form $form)
 	{
-	    $form->addField(GDO_Link::make('link_register')->href(href('Register', 'Form')));
+	    $form->addField(GDT_Link::make('link_register')->href(href('Register', 'Form')));
 	}
 	
-	public function hookLoginForm(GDO_Form $form)
+	public function hookLoginForm(GDT_Form $form)
 	{
-	    $form->addField(GDO_Link::make('link_register')->href(href('Register', 'Form')));
-	    $form->addField(GDO_Link::make('link_register_guest')->href(href('Register', 'Guest')));
+	    $form->addField(GDT_Link::make('link_register')->href(href('Register', 'Form')));
+	    $form->addField(GDT_Link::make('link_register_guest')->href(href('Register', 'Guest')));
 	}
 	
-	public function hookRegisterForm(GDO_Form $form)
+	public function hookRegisterForm(GDT_Form $form)
 	{
-	    $form->addField(GDO_Link::make('link_register_guest')->href(href('Register', 'Guest')));
+	    $form->addField(GDT_Link::make('link_register_guest')->href(href('Register', 'Guest')));
 	}
 	
 }

@@ -2,14 +2,14 @@
 namespace GDO\Register;
 
 use GDO\DB\GDO;
-use GDO\DB\GDO_AutoInc;
-use GDO\DB\GDO_CreatedAt;
-use GDO\Mail\GDO_Email;
-use GDO\Net\GDO_IP;
-use GDO\Type\GDO_Password;
-use GDO\Type\GDO_Token;
-use GDO\User\GDO_Username;
-use GDO\Net\GDO_Url;
+use GDO\DB\GDT_AutoInc;
+use GDO\DB\GDT_CreatedAt;
+use GDO\Mail\GDT_Email;
+use GDO\Net\GDT_IP;
+use GDO\Type\GDT_Password;
+use GDO\Type\GDT_Token;
+use GDO\User\GDT_Username;
+use GDO\Net\GDT_Url;
 
 class UserActivation extends GDO
 {
@@ -17,15 +17,15 @@ class UserActivation extends GDO
 	public function gdoColumns()
 	{
 		return array(
-			GDO_AutoInc::make('ua_id'),
-			GDO_Token::make('ua_token')->notNull(),
-			GDO_CreatedAt::make('ua_time')->notNull(),
+			GDT_AutoInc::make('ua_id'),
+			GDT_Token::make('ua_token')->notNull(),
+			GDT_CreatedAt::make('ua_time')->notNull(),
 
 			# We copy these fields to user table
-			GDO_Username::make('user_name')->notNull(),
-			GDO_Password::make('user_password')->notNull(),
-			GDO_Email::make('user_email'),
-			GDO_IP::make('user_register_ip')->notNull(),
+			GDT_Username::make('user_name')->notNull(),
+			GDT_Password::make('user_password')->notNull(),
+			GDT_Email::make('user_email'),
+			GDT_IP::make('user_register_ip')->notNull(),
 		);
 	}
 	
@@ -35,7 +35,7 @@ class UserActivation extends GDO
 	public function getUsername() { return $this->getVar('user_name'); }
 	
 	public function getHref() { return href('Register', 'Activate', "&id={$this->getID()}&token={$this->getToken()}"); }
-	public function getUrl() { return GDO_Url::absolute($this->getHref()); }
+	public function getUrl() { return GDT_Url::absolute($this->getHref()); }
 	
 	public function href_btn_activate() { return href('Register', 'AdminActivate', '&id='.$this->getID()); }
 	
