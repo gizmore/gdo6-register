@@ -17,6 +17,16 @@ class Activate extends Method
 		return $this->activate(Common::getRequestString('id'), Common::getRequestString('token'));
 	}
 	
+	public function activateToken(GDO_UserActivation $activation)
+	{
+	    $activation->delete();
+	    $user = GDO_User::table()->blank($activation->getGDOVars());
+	    $user->setVars(array(
+	        'user_type' => 'member',
+	    ));
+	    return $user->insert();
+	}
+	
 	public function activate(string $id, string $token)
 	{
 		$id = GDO::quoteS($id);
@@ -25,13 +35,8 @@ class Activate extends Method
 		{
 			return $this->error('err_no_activation');
 		}
-		$activation->delete();
 		
-		$user = GDO_User::table()->blank($activation->getGDOVars());
-		$user->setVars(array(
-			'user_type' => 'member',
-		));
-		$user->insert();
+		$user = $this->activateToken($activation);
 		
 		$response = $this->message('msg_activated', [$user->displayName()]);
 		
