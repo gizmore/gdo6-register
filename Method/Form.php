@@ -19,6 +19,7 @@ use GDO\Type\GDT_Checkbox;
 use GDO\Type\GDT_Password;
 use GDO\User\GDT_Username;
 use GDO\User\GDO_User;
+use GDO\Util\BCrypt;
 use GDO\Form\GDT_Validator;
 
 class Form extends MethodForm
@@ -90,6 +91,10 @@ class Form extends MethodForm
 	public function onRegister(GDT_Form $form)
 	{
 		$module = Module_Register::instance();
+		
+		# TODO: GDT_Password should know it comes from form for a save... b 
+		$password = $form->getField('user_password');
+		$password->var(BCrypt::create($password->getVar())->__toString());
 		
 		$activation = GDO_UserActivation::table()->blank($form->getFormData());
 		$activation->setVar('user_register_ip', GDT_IP::current());
