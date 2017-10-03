@@ -24,7 +24,9 @@ class Activate extends Method
 	    $user->setVars(array(
 	        'user_type' => 'member',
 	    ));
-	    return $user->insert();
+	    $user->insert();
+	    GDT_Hook::call('UserActivated', $user);
+	    return $user;
 	}
 	
 	public function activate(string $id, string $token)
@@ -39,8 +41,6 @@ class Activate extends Method
 		$user = $this->activateToken($activation);
 		
 		$response = $this->message('msg_activated', [$user->displayName()]);
-		
-		GDT_Hook::call('UserActivated', $user);
 		
 		if (Module_Register::instance()->cfgActivationLogin())
 		{
