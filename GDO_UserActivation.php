@@ -6,8 +6,8 @@ use GDO\DB\GDT_AutoInc;
 use GDO\DB\GDT_CreatedAt;
 use GDO\Mail\GDT_Email;
 use GDO\Net\GDT_IP;
-use GDO\Type\GDT_Password;
-use GDO\Type\GDT_Token;
+use GDO\User\GDT_Password;
+use GDO\DB\GDT_Token;
 use GDO\User\GDT_Username;
 use GDO\Net\GDT_Url;
 

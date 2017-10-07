@@ -29,7 +29,7 @@ class Activate extends Method
 	    return $user;
 	}
 	
-	public function activate(string $id, string $token)
+	public function activate($id, $token)
 	{
 		$id = GDO::quoteS($id);
 		$token = GDO::quoteS($token);

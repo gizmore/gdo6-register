@@ -13,10 +13,9 @@ use GDO\Mail\Mail;
 use GDO\Net\GDT_IP;
 use GDO\Register\Module_Register;
 use GDO\Register\GDO_UserActivation;
-use GDO\Template\Message;
-use GDO\Type\GDT_Base;
-use GDO\Type\GDT_Checkbox;
-use GDO\Type\GDT_Password;
+use GDO\Core\GDT;
+use GDO\DB\GDT_Checkbox;
+use GDO\User\GDT_Password;
 use GDO\User\GDT_Username;
 use GDO\User\GDO_User;
 use GDO\Util\BCrypt;
@@ -54,7 +53,7 @@ class Form extends MethodForm
 		GDT_Hook::call('RegisterForm', $form);
 	}
 	
-	function validateUniqueIP(GDT_Form $form, GDT_Base $field)
+	function validateUniqueIP(GDT_Form $form, GDT $field)
 	{
 		$ip = GDO::quoteS(GDT_IP::current());
 		$cut = time() - Module_Register::instance()->cfgMaxUsersPerIPTimeout();
@@ -106,7 +105,7 @@ class Form extends MethodForm
 		}
 		else
 		{
-			return new Message('msg_activating', [$activation->getHref()]);
+			return $this->message('msg_activating', [$activation->getHref()]);
 		}
 	}
 	
@@ -119,7 +118,7 @@ class Form extends MethodForm
 		$mail->setSender(GWF_BOT_EMAIL);
 		$mail->setReceiver($activation->getEmail());
 		$mail->sendAsHTML();
-		return new Message('msg_activation_mail_sent');
+		return $this->message('msg_activation_mail_sent');
 	}
 	
 }

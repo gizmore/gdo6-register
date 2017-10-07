@@ -4,9 +4,9 @@ namespace GDO\Register;
 use GDO\Core\GDO_Module;
 use GDO\Date\GDT_Duration;
 use GDO\Net\GDT_Url;
-use GDO\Template\GDT_Bar;
-use GDO\Type\GDT_Checkbox;
-use GDO\Type\GDT_Int;
+use GDO\UI\GDT_Bar;
+use GDO\DB\GDT_Checkbox;
+use GDO\DB\GDT_Int;
 use GDO\UI\GDT_Link;
 use GDO\User\GDO_Session;
 use GDO\Form\GDT_Form;
@@ -41,7 +41,7 @@ class Module_Register extends GDO_Module
 			GDT_Int::make('ip_signup_count')->initial('1')->min(0)->max(100),
 			GDT_Duration::make('ip_signup_duration')->initial('72600')->min(0)->max(31536000),
 			GDT_Checkbox::make('force_tos')->initial('1'),
-			GDT_Url::make('tos_url')->reachable()->allowLocal()->initial($this->getMethodHREF('TOS')),
+			GDT_Url::make('tos_url')->reachable()->allowLocal()->initial(href('Register', 'TOS')),
 			GDT_Checkbox::make('activation_login')->initial('1'),
 		);
 	}
@@ -62,7 +62,7 @@ class Module_Register extends GDO_Module
 	{
 		if (GDO_Session::user()->isGhost())
 		{
-			$navbar->addField(GDT_Link::make('btn_register')->href($this->getMethodHREF('Form')));
+			$navbar->addField(GDT_Link::make('btn_register')->href(href('Register', 'Form')));
 		}
 	}
 	

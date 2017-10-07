@@ -1,7 +1,7 @@
 <?php
 namespace GDO\Register\Method;
 
-use GDO\Cronjob\MethodCronjob;
+use GDO\Core\MethodCronjob;
 use GDO\DB\Database;
 use GDO\Date\Time;
 use GDO\Register\Module_Register;

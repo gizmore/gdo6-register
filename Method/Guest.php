@@ -2,7 +2,6 @@
 namespace GDO\Register\Method;
 
 use GDO\Captcha\GDT_Captcha;
-use GDO\Core\Application;
 use GDO\Core\GDT_Hook;
 use GDO\Date\Time;
 use GDO\Form\GDT_AntiCSRF;
