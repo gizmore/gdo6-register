@@ -3,7 +3,7 @@ namespace GDO\Register\Method;
 
 use GDO\Core\GDT_Hook;
 use GDO\Core\Method;
-use GDO\DB\GDO;
+use GDO\Core\GDO;
 use GDO\Register\Module_Register;
 use GDO\Register\GDO_UserActivation;
 use GDO\User\GDO_User;
