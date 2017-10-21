@@ -70,7 +70,7 @@ class Form extends MethodForm
 
 	public function validateUniqueEmail(GDT_Form $form, GDT_Email $email, $value)
 	{
-		$count = GDO_User::table()->countWhere("user_email={$email->quotedValue()}");
+		$count = GDO_User::table()->countWhere("user_email=".GDO::quoteS($email->getVar()));
 		return $count === 0 ? true : $email->error('err_email_taken');
 	}
 	
@@ -93,7 +93,7 @@ class Form extends MethodForm
 		
 		# TODO: GDT_Password should know it comes from form for a save... b 
 		$password = $form->getField('user_password');
-		$password->var(BCrypt::create($password->getVar())->__toString());
+		$password->val(BCrypt::create($password->getVar())->__toString());
 		
 		$activation = GDO_UserActivation::table()->blank($form->getFormData());
 		$activation->setVar('user_register_ip', GDT_IP::current());
