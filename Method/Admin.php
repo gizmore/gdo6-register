@@ -1,7 +1,7 @@
 <?php
 namespace GDO\Register\Method;
 
-use GDO\Admin\MethodAdmin;
+use GDO\Core\MethodAdmin;
 use GDO\Register\GDO_UserActivation;
 use GDO\Table\MethodQueryTable;
 use GDO\UI\GDT_Button;
