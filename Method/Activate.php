@@ -25,6 +25,7 @@ class Activate extends Method
 	        'user_type' => 'member',
 	    ));
 	    $user->insert();
+	    GDO_User::$CURRENT = $user;
 	    GDT_Hook::call('UserActivated', $user);
 	    return $user;
 	}
