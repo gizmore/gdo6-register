@@ -16,6 +16,8 @@ return array(
 'btn_signup_guest' => 'Use nickname',
 'err_guest_name_taken' => 'This guest name has been taken already.',
 'msg_registered_as_guest' => 'You are now using the site as %s.',
+'link_register' => 'goto Signup',
+	
 #############################################################################
 'mail_activate_title'=> '%s: Activate your account',
 'mail_activate_body' =>

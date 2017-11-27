@@ -106,7 +106,6 @@ class Form extends MethodForm
 		else
 		{
 			return Activate::make()->activate($activation->getID(), $activation->getToken());
-// 			return $this->message('msg_activating', [$activation->getHref()]);
 		}
 	}
 	
