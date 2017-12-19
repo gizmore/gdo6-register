@@ -42,6 +42,7 @@ class Form extends MethodForm
 		if ($module->cfgTermsOfService())
 		{
 			$form->addField(GDT_Checkbox::make('tos')->required()->label('tos_label', [$module->cfgTosUrl()]));
+			$form->addField(GDT_Validator::make()->validator('tos', [$this, 'validateTOS']));
 		}
 		if ($module->cfgCaptcha())
 		{
@@ -73,6 +74,12 @@ class Form extends MethodForm
 		$count = GDO_User::table()->countWhere("user_email=".GDO::quoteS($email->getVar()));
 		return $count === 0 ? true : $email->error('err_email_taken');
 	}
+	
+	public function validateTOS(GDT_Form $form, GDT_Checkbox $field)
+	{
+		return $field->getValue() ? true : $field->error('err_tos_not_checked');
+	}
+	
 	
 	public function formInvalid(GDT_Form $form)
 	{
