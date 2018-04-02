@@ -13,7 +13,19 @@ use GDO\Register\Module_Register;
 use GDO\User\GDT_Username;
 use GDO\User\GDO_User;
 use GDO\Form\GDT_Validator;
+use GDO\DB\GDT_Checkbox;
 
+/**
+ * Implements guest signup.
+ * Uses the register form to validate variables that are similiar to it.
+ * - Validate Mass signup via IP
+ * - Validate TOS checkbox
+ * 
+ * @author gizmore
+ * @version 6.07
+ * @since 6.00
+ * @see Form
+ */
 class Guest extends MethodForm
 {
     public function isUserRequired() { return false; }
@@ -27,9 +39,18 @@ class Guest extends MethodForm
 	
 	public function createForm(GDT_Form $form)
 	{
+		$module = Module_Register::instance();
+		$signup = Form::make();
+		
 		$form->addField(GDT_Username::make('user_guest_name')->required());
 		$form->addField(GDT_Validator::make()->validator('user_guest_name', [$this, 'validateGuestNameTaken']));
-		if (Module_Register::instance()->cfgCaptcha())
+		$form->addField(GDT_Validator::make()->validator('user_guest_name', [$signup, 'validateUniqueIP']));
+		if ($module->cfgTermsOfService())
+		{
+			$form->addField(GDT_Checkbox::make('tos')->required()->label('tos_label', [$module->cfgTosUrl()]));
+			$form->addField(GDT_Validator::make()->validator('tos', [$signup, 'validateTOS']));
+		}
+		if ($module->cfgCaptcha())
 		{
 			$form->addField(GDT_Captcha::make());
 		}
@@ -61,6 +82,6 @@ class Guest extends MethodForm
 
 		GDT_Hook::call('UserActivated', $user);
 		
-		return $this->message('msg_registered_as_guest', [$user->displayName()])->add($authResponse);
+		return $this->message('msg_registered_as_guest', [$user->displayNameLabel()])->add($authResponse);
 	}
 }

@@ -10,12 +10,19 @@ use GDO\DB\GDT_Int;
 use GDO\UI\GDT_Link;
 use GDO\User\GDO_Session;
 use GDO\Form\GDT_Form;
+use GDO\UI\GDT_Button;
 /**
  * Registration module.
+ * 
+ * Users that await activation are stored in a separate table, GDO_UserActivation.
+ * This way, usernames or emails don't get burned.
+ * 
+ * This module also features guest signup since v6.00.
  *
  * @author gizmore
- * @version 5.0
+ * @version 6.07
  * @since 1.0
+ * @see GDO_UserActivation
  */
 class Module_Register extends GDO_Module
 {
@@ -66,20 +73,29 @@ class Module_Register extends GDO_Module
 		}
 	}
 	
-	public function hookGuestForm(GDT_Form $form)
-	{
-	    $form->addField(GDT_Link::make('link_register')->href(href('Register', 'Form')));
-	}
-	
+	##################
+	### Form Hooks ###
+	##################
 	public function hookLoginForm(GDT_Form $form)
 	{
-	    $form->addField(GDT_Link::make('link_register')->href(href('Register', 'Form')));
-	    $form->addField(GDT_Link::make('link_register_guest')->href(href('Register', 'Guest')));
+		$form->addField(GDT_Button::make('link_register')->secondary()->href(href('Register', 'Form')));
+		if ($this->cfgGuestSignup())
+		{
+			$form->addField(GDT_Button::make('link_register_guest')->secondary()->href(href('Register', 'Guest')));
+		}
 	}
 	
 	public function hookRegisterForm(GDT_Form $form)
 	{
-	    $form->addField(GDT_Link::make('link_register_guest')->href(href('Register', 'Guest')));
+		if ($this->cfgGuestSignup())
+		{
+			$form->addField(GDT_Button::make('link_register_guest')->secondary()->href(href('Register', 'Guest')));
+		}
+	}
+	
+	public function hookGuestForm(GDT_Form $form)
+	{
+	    $form->addField(GDT_Button::make('link_register')->secondary()->href(href('Register', 'Form')));
 	}
 	
 }
