@@ -14,6 +14,7 @@ use GDO\User\GDT_Username;
 use GDO\User\GDO_User;
 use GDO\Form\GDT_Validator;
 use GDO\DB\GDT_Checkbox;
+use GDO\Util\Common;
 
 /**
  * Implements guest signup.
@@ -82,6 +83,10 @@ class Guest extends MethodForm
 
 		GDT_Hook::call('UserActivated', $user);
 		
+		if ($backto = Common::getRequestString('backto'))
+		{
+			return $this->message('msg_registered_as_guest_back', [$user->displayNameLabel(), $backto])->add($authResponse);
+		}
 		return $this->message('msg_registered_as_guest', [$user->displayNameLabel()])->add($authResponse);
 	}
 }
