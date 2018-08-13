@@ -48,8 +48,9 @@ class Module_Register extends GDO_Module
 			GDT_Int::make('ip_signup_count')->initial('1')->min(0)->max(100),
 			GDT_Duration::make('ip_signup_duration')->initial('72600')->min(0)->max(31536000),
 			GDT_Checkbox::make('force_tos')->initial('1'),
-			GDT_Url::make('tos_url')->reachable()->allowLocal()->initial(href('Register', 'TOS')),
-			GDT_Checkbox::make('activation_login')->initial('1'),
+		    GDT_Url::make('tos_url')->reachable()->allowLocal()->initial(href('Register', 'TOS')),
+		    GDT_Url::make('privacy_url')->reachable()->allowLocal()->initial(href('Core', 'Privacy')),
+		    GDT_Checkbox::make('activation_login')->initial('1'),
 		);
 	}
 	public function cfgCaptcha() { return $this->getConfigValue('captcha'); }
@@ -60,7 +61,8 @@ class Module_Register extends GDO_Module
 	public function cfgMaxUsersPerIP() { return $this->getConfigValue('ip_signup_count'); }
 	public function cfgMaxUsersPerIPTimeout() { return $this->getConfigValue('ip_signup_duration'); }
 	public function cfgTermsOfService() { return $this->getConfigValue('force_tos'); }
-	public function cfgTosUrl() { return $this->getConfigValue('tos_url'); }
+	public function cfgTosUrl() { return $this->getConfigVar('tos_url'); }
+	public function cfgPrivacyUrl() { return $this->getConfigVar('privacy_url'); }
 	public function cfgActivationLogin() { return $this->getConfigValue('activation_login'); }
 	################
 	### Top Menu ###

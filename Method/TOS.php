@@ -1,12 +1,8 @@
 <?php
 namespace GDO\Register\Method;
 
-use GDO\Core\Method;
+use GDO\UI\MethodPage;
 
-final class TOS extends Method
+final class TOS extends MethodPage
 {
-	public function execute()
-	{
-		return $this->templatePHP('tos.php');
-	}
 }

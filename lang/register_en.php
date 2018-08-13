@@ -3,7 +3,7 @@ return array(
 'btn_register' => 'Sign up',
 'btn_guest' => 'As Guest',
 'ft_register_form' => '[%s] Sign up',
-'tos_label' => 'I have read and agree to the <a href="%s">Terms of Service</a>',
+'tos_label' => 'I have read and agree to the <a href="%s">Terms of Service</a> and the <a href="%s">privacy implications</a>.',
 'msg_activation_mail_sent' => 'We have sent you an email. To complete your sign up process please follow the instructions there.',
 'msg_activated' => 'Welcome, %s, your account is now activated.',
 'err_username_taken' => 'This username is already in use.',

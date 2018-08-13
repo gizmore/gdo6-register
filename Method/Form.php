@@ -41,7 +41,7 @@ class Form extends MethodForm
 		}
 		if ($module->cfgTermsOfService())
 		{
-			$form->addField(GDT_Checkbox::make('tos')->required()->label('tos_label', [$module->cfgTosUrl()]));
+			$form->addField(GDT_Checkbox::make('tos')->required()->label('tos_label', [$module->cfgTosUrl(), $module->cfgPrivacyURL()]));
 			$form->addField(GDT_Validator::make()->validator('tos', [$this, 'validateTOS']));
 		}
 		if ($module->cfgCaptcha())
