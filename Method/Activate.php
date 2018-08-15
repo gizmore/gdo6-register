@@ -19,15 +19,15 @@ class Activate extends Method
 	
 	public function activateToken(GDO_UserActivation $activation)
 	{
-	    $activation->delete();
-	    $user = GDO_User::table()->blank($activation->getGDOVars());
-	    $user->setVars(array(
-	        'user_type' => 'member',
-	    ));
-	    $user->insert();
-	    GDO_User::$CURRENT = $user;
-	    GDT_Hook::call('UserActivated', $user);
-	    return $user;
+		$activation->delete();
+		$user = GDO_User::table()->blank($activation->getGDOVars());
+		$user->setVars(array(
+			'user_type' => 'member',
+		));
+		$user->insert();
+		GDO_User::$CURRENT = $user;
+		GDT_Hook::call('UserActivated', $user);
+		return $user;
 	}
 	
 	public function activate($id, $token)
@@ -42,6 +42,8 @@ class Activate extends Method
 		$user = $this->activateToken($activation);
 		
 		$response = $this->message('msg_activated', [$user->displayName()]);
+		
+		GDT_Hook::call('UserAvtivated', $user);
 		
 		if (Module_Register::instance()->cfgActivationLogin())
 		{

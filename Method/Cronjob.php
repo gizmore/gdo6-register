@@ -9,17 +9,17 @@ use GDO\Register\GDO_UserActivation;
 
 final class Cronjob extends MethodCronjob
 {
-    public function run()
-    {
-        $module = Module_Register::instance();
-        if (0 != ($timeout = $module->cfgEmailActivationTimeout()))
-        {
-            $cut = Time::getDate(time() - $timeout);
-            GDO_UserActivation::table()->deleteWhere("ua_time < '$cut'")->exec();
-            if ($affected = Database::instance()->affectedRows())
-            {
-                $this->logNotice("Deleted $affected old user activations.");
-            }
-        }
-    }
+	public function run()
+	{
+		$module = Module_Register::instance();
+		if (0 != ($timeout = $module->cfgEmailActivationTimeout()))
+		{
+			$cut = Time::getDate(time() - $timeout);
+			GDO_UserActivation::table()->deleteWhere("ua_time < '$cut'")->exec();
+			if ($affected = Database::instance()->affectedRows())
+			{
+				$this->logNotice("Deleted $affected old user activations.");
+			}
+		}
+	}
 }

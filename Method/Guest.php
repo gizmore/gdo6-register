@@ -29,9 +29,9 @@ use GDO\Util\Common;
  */
 class Guest extends MethodForm
 {
-    public function isUserRequired() { return false; }
-    
-    public function getUserType() { return 'ghost'; }
+	public function isUserRequired() { return false; }
+	
+	public function getUserType() { return 'ghost'; }
 	
 	public function isEnabled()
 	{
@@ -62,11 +62,11 @@ class Guest extends MethodForm
 
 	public function validateGuestNameTaken(GDT_Form $form, GDT_Username $field, $value)
 	{
-	    if (GDO_User::table()->countWhere('user_guest_name='.quote($value)))
-	    {
-	        return $field->error('err_guest_name_taken');
-	    }
-	    return true;
+		if (GDO_User::table()->countWhere('user_guest_name='.quote($value)))
+		{
+			return $field->error('err_guest_name_taken');
+		}
+		return true;
 	}
 	
 	public function formValidated(GDT_Form $form)

@@ -23,9 +23,9 @@ use GDO\Form\GDT_Validator;
 
 class Form extends MethodForm
 {
-    public function isUserRequired() { return false; }
-    
-    public function getUserType() { return 'ghost'; }
+	public function isUserRequired() { return false; }
+	
+	public function getUserType() { return 'ghost'; }
 	
 	public function createForm(GDT_Form $form)
 	{
@@ -36,8 +36,8 @@ class Form extends MethodForm
 		$form->addField(GDT_Password::make('user_password')->required());
 		if ($module->cfgEmailActivation())
 		{
-		    $form->addField(GDT_Email::make('user_email')->required());
-		    $form->addField(GDT_Validator::make()->validator('user_email', [$this, 'validateUniqueEmail']));
+			$form->addField(GDT_Email::make('user_email')->required());
+			$form->addField(GDT_Validator::make()->validator('user_email', [$this, 'validateUniqueEmail']));
 		}
 		if ($module->cfgTermsOfService())
 		{
@@ -65,7 +65,7 @@ class Form extends MethodForm
 	
 	public function validateUniqueUsername(GDT_Form $form, GDT_Username $username, $value)
 	{
-	    $existing = GDO_User::table()->getByName($value);
+		$existing = GDO_User::table()->getByName($value);
 		return $existing ? $username->error('err_username_taken') : true;
 	}
 
