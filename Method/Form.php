@@ -34,6 +34,11 @@ class Form extends MethodForm
 		$form->addField(GDT_Validator::make()->validator('user_name', [$this, 'validateUniqueUsername']));
 		$form->addField(GDT_Validator::make()->validator('user_name', [$this, 'validateUniqueIP']));
 		$form->addField(GDT_Password::make('user_password')->required());
+		if ($module->cfgPasswordRetype())
+		{
+			$form->addField(GDT_Password::make('password_retype')->required()->label('password_retype'));
+			$form->addField(GDT_Validator::make()->validator('password_retype', [$this, 'validatePasswordRetype']));
+		}
 		if ($module->cfgEmailActivation())
 		{
 			$form->addField(GDT_Email::make('user_email')->required());
@@ -52,6 +57,15 @@ class Form extends MethodForm
 		$form->addField(GDT_AntiCSRF::make());
 		
 		GDT_Hook::call('RegisterForm', $form);
+	}
+	
+	function validatePasswordRetype(GDT_Form $form, GDT $field)
+	{
+		if ($field->getVar() !== $form->getField('user_password')->getVar())
+		{
+			return $field->error('err_password_retype');
+		}
+		return true;
 	}
 	
 	function validateUniqueIP(GDT_Form $form, GDT $field)

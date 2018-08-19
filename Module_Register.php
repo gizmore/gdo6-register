@@ -51,6 +51,7 @@ class Module_Register extends GDO_Module
 			GDT_Url::make('tos_url')->reachable()->allowLocal()->initial(href('Register', 'TOS')),
 			GDT_Url::make('privacy_url')->reachable()->allowLocal()->initial(href('Core', 'Privacy')),
 			GDT_Checkbox::make('activation_login')->initial('1'),
+			GDT_Checkbox::make('signup_password_retype')->initial('1'),
 		);
 	}
 	public function cfgCaptcha() { return $this->getConfigValue('captcha'); }
@@ -64,6 +65,8 @@ class Module_Register extends GDO_Module
 	public function cfgTosUrl() { return $this->getConfigVar('tos_url'); }
 	public function cfgPrivacyUrl() { return $this->getConfigVar('privacy_url'); }
 	public function cfgActivationLogin() { return $this->getConfigValue('activation_login'); }
+	public function cfgPasswordRetype() { return $this->getConfigValue('signup_password_retype'); }
+
 	################
 	### Top Menu ###
 	################
