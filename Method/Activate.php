@@ -20,12 +20,10 @@ class Activate extends Method
 	public function activateToken(GDO_UserActivation $activation)
 	{
 		$activation->delete();
-		$user = GDO_User::table()->blank($activation->getGDOVars());
-		$user->setVars(array(
-			'user_type' => 'member',
-		));
-		$user->insert();
-		GDO_User::$CURRENT = $user;
+		$user = GDO_User::current();
+		$user->setVars($activation->getGDOVars());
+		$user->setVar('user_type', 'member');
+		$user->save();
 		GDT_Hook::call('UserActivated', $user);
 		return $user;
 	}
