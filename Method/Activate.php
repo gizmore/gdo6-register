@@ -24,7 +24,7 @@ class Activate extends Method
 		$user->setVars($activation->getGDOVars());
 		$user->setVar('user_type', 'member');
 		$user->save();
-		GDT_Hook::call('UserActivated', $user);
+		GDT_Hook::callWithIPC('UserActivated', $user);
 		return $user;
 	}
 	
@@ -41,7 +41,7 @@ class Activate extends Method
 		
 		$response = $this->message('msg_activated', [$user->displayName()]);
 		
-		GDT_Hook::call('UserAvtivated', $user);
+		GDT_Hook::callWithIPC('UserAvtivated', $user);
 		
 		if (Module_Register::instance()->cfgActivationLogin())
 		{

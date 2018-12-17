@@ -57,7 +57,7 @@ class Guest extends MethodForm
 		}
 		$form->addField(GDT_Submit::make()->label('btn_signup_guest'));
 		$form->addField(GDT_AntiCSRF::make());
-		GDT_Hook::call('GuestForm', $form);
+		GDT_Hook::callHook('GuestForm', $form);
 	}
 
 	public function validateGuestNameTaken(GDT_Form $form, GDT_Username $field, $value)
@@ -81,7 +81,7 @@ class Guest extends MethodForm
 		
 		$authResponse = \GDO\Login\Method\Form::make()->loginSuccess($user);
 
-		GDT_Hook::call('UserActivated', $user);
+		GDT_Hook::callWithIPC('UserActivated', $user);
 		
 		if ($backto = Common::getRequestString('backto'))
 		{

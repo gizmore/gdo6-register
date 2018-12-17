@@ -56,7 +56,7 @@ class Form extends MethodForm
 		$form->addField(GDT_Submit::make()->label('btn_register'));
 		$form->addField(GDT_AntiCSRF::make());
 		
-		GDT_Hook::call('RegisterForm', $form);
+		GDT_Hook::callHook('RegisterForm', $form);
 	}
 	
 	function validatePasswordRetype(GDT_Form $form, GDT $field)
