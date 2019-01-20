@@ -19,7 +19,7 @@ class Activate extends Method
 	
 	public function activateToken(GDO_UserActivation $activation)
 	{
-		$activation->delete();
+		$activation->markDeleted();
 		$user = GDO_User::current();
 		$user->setVars($activation->getGDOVars());
 		$user->setVar('user_type', 'member');
@@ -35,6 +35,12 @@ class Activate extends Method
 		if (!($activation = GDO_UserActivation::table()->findWhere("ua_id={$id} AND ua_token={$token}")))
 		{
 			return $this->error('err_no_activation');
+		}
+		
+		if ($activation->isDeleted())
+		{
+			GDT_Hook::callHook('AlreadyActivated');
+			return $this->message('msg_already_activated');
 		}
 		
 		$user = $this->activateToken($activation);

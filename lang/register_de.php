@@ -6,6 +6,7 @@ return array(
 'tos_label' => 'Ich habe die <a href="%s">Nutzungsbedingungen</a> und <a href="%s">Datenschutzbestimmungen</a> gelesen.',
 'msg_activation_mail_sent' => 'Wir haben Dir eine E-Mail gesendet. Folge dem Aktivierungslink dort um die registrierung abzuschliessen.',
 'msg_activated' => 'Willkommen, %s, Dein Konto ist nun aktiviert.',
+'msg_already_activated' => 'Ihr Konto war bereits aktiviert.',
 'err_username_taken' => 'Dieser Benutzername ist bereits vergeben.',
 'err_email_taken' => 'Diese E-Mail ist bereits vergeben.',
 'err_register' => 'Bei der Registrierung sind noch Fehler aufgetreten.',

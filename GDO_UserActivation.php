@@ -10,6 +10,8 @@ use GDO\User\GDT_Password;
 use GDO\DB\GDT_Token;
 use GDO\User\GDT_Username;
 use GDO\Net\GDT_Url;
+use GDO\DB\GDT_DeletedAt;
+use GDO\Date\Time;
 
 class GDO_UserActivation extends GDO
 {
@@ -20,6 +22,7 @@ class GDO_UserActivation extends GDO
 			GDT_AutoInc::make('ua_id'),
 			GDT_Token::make('ua_token')->notNull(),
 			GDT_CreatedAt::make('ua_time')->notNull(),
+			GDT_DeletedAt::make('ua_deleted'),
 
 			# We copy these fields to user table
 			GDT_Username::make('user_name')->notNull(),
@@ -33,6 +36,7 @@ class GDO_UserActivation extends GDO
 	public function getToken() { return $this->getVar('ua_token'); }
 	public function getEmail() { return $this->getVar('user_email'); }
 	public function getUsername() { return $this->getVar('user_name'); }
+	public function isDeleted() { return $this->getVar('ua_deleted') !== null; }
 	
 	public function getHref() { return href('Register', 'Activate', "&id={$this->getID()}&token={$this->getToken()}"); }
 	public function getUrl() { return GDT_Url::absolute($this->getHref()); }
@@ -40,5 +44,7 @@ class GDO_UserActivation extends GDO
 	public function href_btn_activate() { return href('Register', 'AdminActivate', '&id='.$this->getID()); }
 	
 	public function displayNameLabel() { return $this->getVar('user_name'); }
+	
+	public function markDeleted() { return $this->saveVar('ua_deleted', Time::getDate()); }
 	
 }
