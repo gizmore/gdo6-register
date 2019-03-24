@@ -1,11 +1,11 @@
 <?php
 namespace GDO\Register\Method;
 
-use GDO\Core\MethodCronjob;
 use GDO\DB\Database;
 use GDO\Date\Time;
 use GDO\Register\Module_Register;
 use GDO\Register\GDO_UserActivation;
+use GDO\Cronjob\MethodCronjob;
 
 final class Cronjob extends MethodCronjob
 {
