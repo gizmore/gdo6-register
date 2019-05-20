@@ -1,35 +1,29 @@
 <?php
 namespace GDO\Register\Method;
 
+use GDO\Core\Method;
 use GDO\Core\MethodAdmin;
-use GDO\Register\GDO_UserActivation;
-use GDO\Table\MethodQueryTable;
-use GDO\UI\GDT_Button;
+use GDO\Core\GDT_Response;
+use GDO\UI\GDT_Bar;
+use GDO\UI\GDT_Link;
 
-final class Admin extends MethodQueryTable
+/**
+ * Show a menu of admin options for the register module.
+ * @author gizmore
+ */
+final class Admin extends Method
 {
 	use MethodAdmin;
 	public function execute()
 	{
-		$response = parent::execute();
+		# Admin menu
+		$menu = GDT_Bar::make()->horizontal();
+		$menu->addField(GDT_Link::make('link_register_activations')->href(href('Register', 'Activations')));
+		$response = GDT_Response::makeWith($menu);
+		
+		# Tabs first
 		$tabs = $this->renderNavBar('Register');
 		return $tabs->add($response);
 	}
 
-	public function getQuery()
-	{
-		return GDO_UserActivation::table()->select('*');
-	}
-	
-	public function getHeaders()
-	{
-		$gdo = GDO_UserActivation::table();
-		return array(
-			GDT_Button::make('btn_activate'),
-			$gdo->gdoColumn('ua_time'),
-			$gdo->gdoColumn('user_name'),
-			$gdo->gdoColumn('user_register_ip'),
-			$gdo->gdoColumn('user_email'),
-		);
-	}
 }
