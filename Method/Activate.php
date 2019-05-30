@@ -47,8 +47,6 @@ class Activate extends Method
 		
 		$response = $this->message('msg_activated', [$user->displayName()]);
 		
-		GDT_Hook::callWithIPC('UserAvtivated', $user);
-		
 		if (Module_Register::instance()->cfgActivationLogin())
 		{
 			Form::make()->loginSuccess($user);
