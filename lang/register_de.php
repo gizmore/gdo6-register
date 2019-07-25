@@ -24,17 +24,4 @@ return array(
 	
 #############################################################################
 'mail_activate_title'=> '%s: Activate your account',
-'mail_activate_body' =>
-"Hello %s<br/>\n".
-"<br/>\n".
-"Welcome to %s<br/>\n".
-"<br/>\n".
-"To activate your account please visit the following link.<br/>\n".
-"<br/>\n".
-"<a href=\"%s\">Activate</a><br/>\n".
-"<br/>\n".
-"In case you do not want to register an account, please ignore this email.<br/>\n".
-"<br/>\n".
-"Kind Regards<br/>\n".
-'The %2$s staff',
 );

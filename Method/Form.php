@@ -20,6 +20,7 @@ use GDO\User\GDT_Username;
 use GDO\User\GDO_User;
 use GDO\Util\BCrypt;
 use GDO\Form\GDT_Validator;
+use GDO\Core\GDT_Template;
 
 class Form extends MethodForm
 {
@@ -134,12 +135,22 @@ class Form extends MethodForm
 	{
 		$mail = new Mail();
 		$mail->setSubject(t('mail_activate_title', [sitename()]));
-		$args = array($activation->getUsername(), sitename(), $activation->getUrl());
-		$mail->setBody(t('mail_activate_body', $args));
+		$body = $this->getMailBody($activation);
+// 		$args = array($activation->getUsername(), sitename(), $activation->getUrl());
+		$mail->setBody($body);
 		$mail->setSender(GWF_BOT_EMAIL);
 		$mail->setReceiver($activation->getEmail());
 		$mail->sendAsHTML();
 		return $this->message('msg_activation_mail_sent');
+	}
+	
+	public function getMailBody(GDO_UserActivation $activation)
+	{
+		$tVars = array(
+			'username' => $activation->getUsername(),
+			'activation_url' => $activation->getUrl(),
+		);
+		return GDT_Template::php('Register', 'mail/activate.php', $tVars);
 	}
 	
 }
