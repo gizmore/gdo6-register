@@ -29,7 +29,7 @@ class Module_Register extends GDO_Module
 	##############
 	### Module ###
 	##############
-	public function isCoreModule() { return true; }
+	public function getDependencies() { return ['Captcha', 'Cronjob']; }
 	public function getClasses() { return array('GDO\Register\GDO_UserActivation'); }
 	public function onLoadLanguage() { $this->loadLanguage('lang/register'); }
 	public function href_administrate_module() { return href('Register', 'Admin'); }
