@@ -1,5 +1,18 @@
 <?php
 return array(
+'cfg_captcha' => 'Registrierungs-Captcha aktivieren?',
+'cfg_guest_signup' => 'Gastkonten erlauben?',
+'cfg_email_activation' => 'Aktivierungs-Mail erzwingen?',
+'cfg_email_activation_timeout' => 'Zeit bis Aktivierung ausläuft',
+'cfg_admin_activation' => 'Admins müssen neue Mitglieder aktivieren?',
+'cfg_ip_signup_count' => 'Maximale Registrierungen per IP',
+'cfg_ip_signup_duration' => 'Verbleibende Zeit für Aktivierung',
+'cfg_force_tos' => 'Erzwinge das Lesen der AGB',
+'cfg_tos_url' => 'AGB Link URL',
+'cfg_privacy_url' => 'Datenschutzbestimmungen Link URL',
+'cfg_activation_login' => 'Automatisches Login nach Aktivierung',
+'cfg_signup_password_retype' => 'Erzwinge Passwort-Wiederholung',
+#############################################################################
 'btn_register' => 'Registrieren',
 'btn_guest' => 'Weiter als Gast',
 'ft_register_form' => 'Registrierung',
@@ -21,7 +34,6 @@ return array(
 'msg_registered_as_guest_back' => 'Du bist nun als %s angemeldet. <a href="%s">Klicke hier</a> um fortzufahren.',
 'link_register' => 'zur Registrierung',
 'link_register_guest' => 'weiter als Gast',
-	
 #############################################################################
-'mail_activate_title'=> '%s: Activate your account',
+'mail_activate_title'=> '[%s] Activieren Sie Ihr Konto',
 );

@@ -1,5 +1,18 @@
 <?php
 return array(
+'cfg_captcha' => 'Force captcha for sign-up',
+'cfg_guest_signup' => 'Allow guest sign-up',
+'cfg_email_activation' => 'Force member activation by email',
+'cfg_email_activation_timeout' => 'Timeout for email activation',
+'cfg_admin_activation' => 'Force admin activation',
+'cfg_ip_signup_count' => 'Max number of accounts per IP',
+'cfg_ip_signup_duration' => 'IP reject timeout',
+'cfg_force_tos' => 'Force TOS reading',
+'cfg_tos_url' => 'ToS link URL',
+'cfg_privacy_url' => 'Privacy agreement link URL',
+'cfg_activation_login' => 'Login automatically after activation',
+'cfg_signup_password_retype' => 'Force password retype upon sign-up',
+#############################################################################
 'btn_register' => 'Sign up',
 'btn_guest' => 'As Guest',
 'ft_register_form' => 'Sign up',
@@ -21,7 +34,6 @@ return array(
 'msg_registered_as_guest_back' => 'You are now using the site as %s. <a href="%s">Click here</a> to continue.',
 'link_register' => 'goto Signup',
 'link_register_guest' => 'continue as Guest',
-	
 #############################################################################
 'mail_activate_title'=> '%s: Activate your account',
 );
