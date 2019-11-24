@@ -16,6 +16,7 @@ return array(
 'btn_register' => 'Sign up',
 'btn_guest' => 'As Guest',
 'ft_register_form' => 'Sign up',
+'password_retype' => 'Retype Password',
 'tos_label' => 'I have read and agree to the <a href="%s">Terms of Service</a> and the <a href="%s">privacy implications</a>.',
 'msg_activation_mail_sent' => 'We have sent you an email. To complete your sign up process please follow the instructions there.',
 'msg_activated' => 'Welcome, %s, your account is now activated.',
@@ -26,6 +27,7 @@ return array(
 'err_no_activation' => 'Activating your account failed.',
 'err_ip_signup_max_reached' => 'There are already %s accounts with your IP registered lately.',
 'err_tos_not_checked' => 'You have to accept the terms of service to sign up.',
+'err_password_retype' => 'You have to retype your password correctly.',
 #############################################################################
 'ft_register_guest' => 'Continue as Guest',
 'btn_signup_guest' => 'Use nickname',
