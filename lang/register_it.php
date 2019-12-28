@@ -17,7 +17,7 @@ return array(
 'btn_guest' => 'Procedere come ospite',
 'ft_register_form' => 'Registrazione',
 'password_retype' => 'Registrare nuovamente',
-'tos_label' => Ho letto le <a href="%s">condizioni</a> e la <a href="%s">norma sul trattamento dei dati personali [JURA]</a>.',
+'tos_label' => 'Ho letto le <a href="%s">condizioni</a> e la <a href="%s">norma sul trattamento dei dati personali [JURA]</a>.',
 'msg_activation_mail_sent' => 'Vi é stata inviata una Mail. Segua il Link di attivazione per concludere la registrazione.',
 'msg_activated' => 'Benvenuta/o %s, Il conto é stato attivato.',
 'msg_already_activated' => 'Il conto era gia attivato.',
