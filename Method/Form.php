@@ -133,12 +133,14 @@ class Form extends MethodForm
 	
 	public function onEmailActivation(GDO_UserActivation $activation)
 	{
+		$module = Module_Register::instance();
 		$mail = new Mail();
 		$mail->setSubject(t('mail_activate_title', [sitename()]));
 		$body = $this->getMailBody($activation);
 // 		$args = array($activation->getUsername(), sitename(), $activation->getUrl());
 		$mail->setBody($body);
-		$mail->setSender(GWF_BOT_EMAIL);
+		$mail->setSender($module->cfgMailSender());
+		$mail->setSenderName($module->cfgMailSenderName());
 		$mail->setReceiver($activation->getEmail());
 		$mail->sendAsHTML();
 		return $this->message('msg_activation_mail_sent');

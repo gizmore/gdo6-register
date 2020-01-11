@@ -11,6 +11,8 @@ use GDO\UI\GDT_Link;
 use GDO\User\GDO_Session;
 use GDO\Form\GDT_Form;
 use GDO\UI\GDT_Button;
+use GDO\Mail\GDT_Email;
+use GDO\User\GDT_Realname;
 /**
  * Registration module.
  * 
@@ -52,6 +54,8 @@ class Module_Register extends GDO_Module
 			GDT_Url::make('privacy_url')->reachable()->allowLocal()->initial(href('Core', 'Privacy')),
 			GDT_Checkbox::make('activation_login')->initial('1'),
 			GDT_Checkbox::make('signup_password_retype')->initial('1'),
+			GDT_Email::make('signup_mail_sender')->initial(GWF_BOT_EMAIL),
+			GDT_Realname::make('signup_mail_sender_name')->initial(GWF_BOT_NAME),
 		);
 	}
 	public function cfgCaptcha() { return $this->getConfigValue('captcha'); }
@@ -66,7 +70,9 @@ class Module_Register extends GDO_Module
 	public function cfgPrivacyUrl() { return $this->getConfigVar('privacy_url'); }
 	public function cfgActivationLogin() { return $this->getConfigValue('activation_login'); }
 	public function cfgPasswordRetype() { return $this->getConfigValue('signup_password_retype'); }
-
+	public function cfgMailSender() { return $this->getConfigVar(''); }
+	public function cfgMailSenderName() { return $this->getConfigVar(''); }
+	
 	################
 	### Top Menu ###
 	################
