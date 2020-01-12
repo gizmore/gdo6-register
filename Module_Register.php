@@ -70,8 +70,8 @@ class Module_Register extends GDO_Module
 	public function cfgPrivacyUrl() { return $this->getConfigVar('privacy_url'); }
 	public function cfgActivationLogin() { return $this->getConfigValue('activation_login'); }
 	public function cfgPasswordRetype() { return $this->getConfigValue('signup_password_retype'); }
-	public function cfgMailSender() { return $this->getConfigVar(''); }
-	public function cfgMailSenderName() { return $this->getConfigVar(''); }
+	public function cfgMailSender() { return $this->getConfigVar('signup_mail_sender'); }
+	public function cfgMailSenderName() { return $this->getConfigVar('signup_mail_sender_name'); }
 	
 	################
 	### Top Menu ###
