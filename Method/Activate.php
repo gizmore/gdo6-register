@@ -9,9 +9,18 @@ use GDO\Register\GDO_UserActivation;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Login\Method\Form;
+use GDO\DB\GDT_String;
 
 class Activate extends Method
 {
+	public function gdoParameters()
+	{
+		return array(
+			GDT_String::make('id')->notNull(),
+			GDT_String::make('token')->notNull(),
+		);
+	}
+	
 	public function execute()
 	{
 		return $this->activate(Common::getRequestString('id'), Common::getRequestString('token'));

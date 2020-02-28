@@ -38,4 +38,9 @@ return array(
 'link_register_guest' => 'Procedere come ospite',
 #############################################################################
 'mail_activate_title' => '[%s] Attivare il conto',
+#############################################################################
+'mdescr_register_form' => 'Register',
+'mdescr_register_guest' => 'Register as guest',
+'mdescr_register_tos' => 'Terms of service',
+	
 );

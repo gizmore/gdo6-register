@@ -38,4 +38,9 @@ return array(
 'link_register_guest' => 'weiter als Gast',
 #############################################################################
 'mail_activate_title'=> '[%s] Activieren Sie Ihr Konto',
+#############################################################################
+'mdescr_register_form' => 'Registrieren',
+'mdescr_register_guest' => 'Als Gast anmelden',
+'mdescr_register_tos' => 'Nutzungsbedingungen',
+	
 );

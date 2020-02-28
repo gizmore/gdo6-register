@@ -38,4 +38,8 @@ return array(
 'link_register_guest' => 'continue as Guest',
 #############################################################################
 'mail_activate_title'=> '%s: Activate your account',
+#############################################################################
+'mdescr_register_form' => 'Register',
+'mdescr_register_guest' => 'Register as guest',
+'mdescr_register_tos' => 'Terms of service',
 );
