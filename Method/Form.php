@@ -2,6 +2,7 @@
 namespace GDO\Register\Method;
 
 use GDO\Captcha\GDT_Captcha;
+use GDO\Core\Application;
 use GDO\Core\GDT_Hook;
 use GDO\Core\GDO;
 use GDO\Form\GDT_AntiCSRF;
@@ -15,6 +16,7 @@ use GDO\Register\Module_Register;
 use GDO\Register\GDO_UserActivation;
 use GDO\Core\GDT;
 use GDO\DB\GDT_Checkbox;
+use GDO\Date\Time;
 use GDO\User\GDT_Password;
 use GDO\User\GDT_Username;
 use GDO\User\GDO_User;
@@ -72,7 +74,8 @@ class Form extends MethodForm
 	function validateUniqueIP(GDT_Form $form, GDT $field)
 	{
 		$ip = GDO::quoteS(GDT_IP::current());
-		$cut = time() - Module_Register::instance()->cfgMaxUsersPerIPTimeout();
+		$cut = Application::$TIME - Module_Register::instance()->cfgMaxUsersPerIPTimeout();
+		$cut = Time::getDate($cut);
 		$count = GDO_User::table()->countWhere("user_register_ip={$ip} AND user_register_time>{$cut}");
 		$max = Module_Register::instance()->cfgMaxUsersPerIP();
 		return $count < $max ? true : $field->error('err_ip_signup_max_reached', [$max]);

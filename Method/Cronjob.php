@@ -5,6 +5,7 @@ use GDO\DB\Database;
 use GDO\Date\Time;
 use GDO\Register\Module_Register;
 use GDO\Register\GDO_UserActivation;
+use GDO\Core\Application;
 use GDO\Cronjob\MethodCronjob;
 
 final class Cronjob extends MethodCronjob
@@ -14,7 +15,7 @@ final class Cronjob extends MethodCronjob
 		$module = Module_Register::instance();
 		if (0 != ($timeout = $module->cfgEmailActivationTimeout()))
 		{
-			$cut = Time::getDate(time() - $timeout);
+		    $cut = Time::getDate(Application::$TIME - $timeout);
 			GDO_UserActivation::table()->deleteWhere("ua_time < '$cut'")->exec();
 			if ($affected = Database::instance()->affectedRows())
 			{
