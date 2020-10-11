@@ -76,7 +76,7 @@ class Form extends MethodForm
 		$ip = GDO::quoteS(GDT_IP::current());
 		$cut = Application::$TIME - Module_Register::instance()->cfgMaxUsersPerIPTimeout();
 		$cut = Time::getDate($cut);
-		$count = GDO_User::table()->countWhere("user_register_ip={$ip} AND user_register_time>{$cut}");
+		$count = GDO_User::table()->countWhere("user_register_ip={$ip} AND user_register_time>'{$cut}'");
 		$max = Module_Register::instance()->cfgMaxUsersPerIP();
 		return $count < $max ? true : $field->error('err_ip_signup_max_reached', [$max]);
 	}
