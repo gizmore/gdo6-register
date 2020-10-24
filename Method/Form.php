@@ -118,7 +118,7 @@ class Form extends MethodForm
 		
 		# TODO: GDT_Password should know it comes from form for a save... b 
 		$password = $form->getField('user_password');
-		$password->val(BCrypt::create($password->getVar())->__toString());
+		$password->var(BCrypt::create($password->getVar())->__toString());
 		
 		$activation = GDO_UserActivation::table()->blank($form->getFormData());
 		$activation->setVar('user_register_ip', GDT_IP::current());
