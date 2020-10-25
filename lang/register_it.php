@@ -12,6 +12,8 @@ return array(
 'cfg_privacy_url' => 'norma sul trattamento dei dati personali [JURA]',
 'cfg_activation_login' => 'Login automatico dopo l´attivazione',
 'cfg_signup_password_retype' => 'Costringere a ripetere il password',
+'cfg_signup_mail_sender' => 'Mittente della posta di registrazione',
+'cfg_signup_mail_sender_name' => 'Nome del mittente della posta di registrazione',
 #############################################################################
 'btn_register' => 'Regitrare',
 'btn_guest' => 'Procedere come ospite',

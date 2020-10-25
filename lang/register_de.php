@@ -12,6 +12,8 @@ return array(
 'cfg_privacy_url' => 'Datenschutzbestimmungen Link URL',
 'cfg_activation_login' => 'Automatisches Login nach Aktivierung',
 'cfg_signup_password_retype' => 'Erzwinge Passwort-Wiederholung',
+'cfg_signup_mail_sender' => 'Registrierungs-Mail Absender',
+'cfg_signup_mail_sender_name' => 'Registrierungs-Mail Absender Name',
 #############################################################################
 'btn_register' => 'Registrieren',
 'btn_guest' => 'Weiter als Gast',

@@ -28,6 +28,8 @@ use GDO\User\GDT_Realname;
  */
 class Module_Register extends GDO_Module
 {
+    public $module_priority = 90;
+    
 	##############
 	### Module ###
 	##############
@@ -55,7 +57,7 @@ class Module_Register extends GDO_Module
 			GDT_Checkbox::make('activation_login')->initial('1'),
 			GDT_Checkbox::make('signup_password_retype')->initial('1'),
 			GDT_Email::make('signup_mail_sender')->initial(GWF_BOT_EMAIL),
-			GDT_Realname::make('signup_mail_sender_name')->initial(GWF_BOT_NAME),
+			GDT_Realname::make('signup_mail_sender_name')->icon('email')->initial(GWF_BOT_NAME),
 		);
 	}
 	public function cfgCaptcha() { return $this->getConfigValue('captcha'); }

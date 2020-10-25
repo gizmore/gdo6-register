@@ -12,6 +12,8 @@ return array(
 'cfg_privacy_url' => 'Privacy agreement link URL',
 'cfg_activation_login' => 'Login automatically after activation',
 'cfg_signup_password_retype' => 'Force password retype upon sign-up',
+'cfg_signup_mail_sender' => 'Registration mail sender',
+'cfg_signup_mail_sender_name' => 'Registration mail sender name',
 #############################################################################
 'btn_register' => 'Sign up',
 'btn_guest' => 'As Guest',

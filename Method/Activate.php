@@ -26,17 +26,6 @@ class Activate extends Method
 		return $this->activate(Common::getRequestString('id'), Common::getRequestString('token'));
 	}
 	
-	public function activateToken(GDO_UserActivation $activation)
-	{
-		$activation->markDeleted();
-		$user = GDO_User::current();
-		$user->setVars($activation->getGDOVars());
-		$user->setVar('user_type', 'member');
-		$user->save();
-		GDT_Hook::callWithIPC('UserActivated', $user);
-		return $user;
-	}
-	
 	public function activate($id, $token)
 	{
 		$id = GDO::quoteS($id);
@@ -63,6 +52,17 @@ class Activate extends Method
 		}
 		
 		return $response;
+	}
+	
+	public function activateToken(GDO_UserActivation $activation)
+	{
+	    $activation->markDeleted();
+	    $user = GDO_User::current();
+	    $user->setVars($activation->getGDOVars());
+	    $user->setVar('user_type', 'member');
+	    $user->save();
+	    GDT_Hook::callWithIPC('UserActivated', $user);
+	    return $user;
 	}
 	
 }
