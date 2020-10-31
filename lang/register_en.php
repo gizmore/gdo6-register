@@ -39,9 +39,21 @@ return array(
 'link_register' => 'goto Signup',
 'link_register_guest' => 'continue as Guest',
 #############################################################################
-'mail_activate_title'=> '%s: Activate your account',
+'mail_activate_subj' => '%s: Activate your account',
 #############################################################################
 'mdescr_register_form' => 'Register',
 'mdescr_register_guest' => 'Register as guest',
 'mdescr_register_tos' => 'Terms of service',
+#############################################################################
+'moderation_info' => 'The signup process is currently requiering an adminstrator to unlock accounts. Please be patient.',
+'msg_registration_confirmed_but_moderation' => 'You have confirmed your email and now have to wait until an administrator activates you.',
+'mail_moderate_subj' => '%s: New Registration',
+'mail_activate2_subj' => '%s: Account activated',
+'user_signup_text' => 'Please write something about you',
+'cfg_admin_activation_test' => 'Shall the user write something about himself?',
+'link_activations' => 'Pending activations',
+'ua_email_confirmed' => 'Email confirmed',
+'msg_already_confirmed' => 'Your Email has been confirmed already. You have to wait for an administrator to activate your account.',
+'btn_activate' => 'Activate',
+'msg_user_activated' => 'The user %s has been activated successfully.',
 );

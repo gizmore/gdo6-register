@@ -44,5 +44,16 @@ return array(
 'mdescr_register_form' => 'Registrieren',
 'mdescr_register_guest' => 'Als Gast anmelden',
 'mdescr_register_tos' => 'Nutzungsbedingungen',
-	
+#############################################################################
+'moderation_info' => 'Die Registrierung erfordert zur Zeit die aktivierung durch einen Administrator. Wir bitten um Geduld.',
+'msg_registration_confirmed_but_moderation' => 'Sie haben Ihre E-Mail bestätigt and warten nun auf eine Aktivierung durch einen Administrator.',
+'mail_moderate_subj' => '%s: Neue Anmeldung',
+'mail_activate2_subj' => '%s: Konto aktiviert',
+'user_signup_text' => 'Bitte schreiben Sie etwas über sich',
+'cfg_admin_activation_test' => 'Sollen die Nutzer erst etwas über sich schreiben?',
+'link_activations' => 'Wartende Aktivierungen',
+'ua_email_confirmed' => 'E-Mail bestätigt',
+'msg_already_confirmed' => 'Ihre E-Mail wurde bereits bestätigt. Sie müssen nun auf einen Administrator warten, um Ihr Konto zu aktivieren.',
+'btn_activate' => 'Aktivieren',
+'msg_user_activated' => 'Der Nutzer %s wurde erfolgreich aktiviert.',
 );

@@ -5,6 +5,7 @@ use GDO\Core\GDO_Module;
 use GDO\Date\GDT_Duration;
 use GDO\Net\GDT_Url;
 use GDO\UI\GDT_Bar;
+use GDO\UI\GDT_Page;
 use GDO\DB\GDT_Checkbox;
 use GDO\DB\GDT_Int;
 use GDO\UI\GDT_Link;
@@ -13,17 +14,26 @@ use GDO\Form\GDT_Form;
 use GDO\UI\GDT_Button;
 use GDO\Mail\GDT_Email;
 use GDO\User\GDT_Realname;
+
 /**
  * Registration module.
  * 
  * Users that await activation are stored in a separate table, GDO_UserActivation.
  * This way, usernames or emails don't get burned.
  * 
- * This module also features guest signup since v6.00.
+ * This module features Guest Signup.
+ * This module features Email Activation.
+ * This module features Instant Activation.
+ * This module features Admin Signup Moderation Activation.
+ * This module features Terms of Service and Privacy pages.
+ *
+ * @TODO Guest to Member conversion.
  *
  * @author gizmore
- * @version 6.07
- * @since 1.0
+ * @version 6.10
+ * @since 3.00
+ * 
+ * @see Module_ActivationAlert
  * @see GDO_UserActivation
  */
 class Module_Register extends GDO_Module
@@ -33,7 +43,7 @@ class Module_Register extends GDO_Module
 	##############
 	### Module ###
 	##############
-	public function getDependencies() { return ['Captcha', 'Cronjob']; }
+	public function getDependencies() { return ['Cronjob']; }
 	public function getClasses() { return array('GDO\Register\GDO_UserActivation'); }
 	public function onLoadLanguage() { $this->loadLanguage('lang/register'); }
 	public function href_administrate_module() { return href('Register', 'Admin'); }
@@ -44,13 +54,14 @@ class Module_Register extends GDO_Module
 	public function getConfig()
 	{
 		return array(
-			GDT_Checkbox::make('captcha')->initial('0'),
+			GDT_Checkbox::make('captcha')->initial('1'),
 			GDT_Checkbox::make('guest_signup')->initial('1'),
 			GDT_Checkbox::make('email_activation')->initial('1'),
-			GDT_Duration::make('email_activation_timeout')->initial('72600')->min(0)->max(31536000),
-			GDT_Checkbox::make('admin_activation')->initial('0'),
-			GDT_Int::make('ip_signup_count')->initial('1')->min(0)->max(100),
-			GDT_Duration::make('ip_signup_duration')->initial('72600')->min(0)->max(31536000),
+			GDT_Duration::make('email_activation_timeout')->initial("2h")->min(0)->max(31536000),
+		    GDT_Checkbox::make('admin_activation')->initial('0'),
+		    GDT_Checkbox::make('admin_activation_test')->initial('0'),
+		    GDT_Int::make('ip_signup_count')->initial('2')->min(0)->max(100),
+			GDT_Duration::make('ip_signup_duration')->initial('1d')->min(0)->max(31536000),
 			GDT_Checkbox::make('force_tos')->initial('1'),
 			GDT_Url::make('tos_url')->reachable()->allowLocal()->initial(href('Register', 'TOS')),
 			GDT_Url::make('privacy_url')->reachable()->allowLocal()->initial(href('Core', 'Privacy')),
@@ -65,6 +76,7 @@ class Module_Register extends GDO_Module
 	public function cfgEmailActivation() { return $this->getConfigValue('email_activation'); }
 	public function cfgEmailActivationTimeout() { return $this->getConfigValue('email_activation_timeout'); }
 	public function cfgAdminActivation() { return $this->getConfigValue('admin_activation'); }
+	public function cfgAdminActivationTest() { return $this->getConfigValue('admin_activation_test'); }
 	public function cfgMaxUsersPerIP() { return $this->getConfigValue('ip_signup_count'); }
 	public function cfgMaxUsersPerIPTimeout() { return $this->getConfigValue('ip_signup_duration'); }
 	public function cfgTermsOfService() { return $this->getConfigValue('force_tos'); }
@@ -84,6 +96,13 @@ class Module_Register extends GDO_Module
 		{
 			$navbar->addField(GDT_Link::make('btn_register')->href(href('Register', 'Form')));
 		}
+	}
+	
+	public function renderAdminBar()
+	{
+	    $tabs = GDT_Bar::make()->horizontal();
+	    $tabs->addField(GDT_Link::make('link_activations')->href(href('Register', 'Activations')));
+	    GDT_Page::$INSTANCE->topTabs->addField($tabs);
 	}
 	
 	##################

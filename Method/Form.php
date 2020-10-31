@@ -23,6 +23,9 @@ use GDO\User\GDO_User;
 use GDO\Util\BCrypt;
 use GDO\Form\GDT_Validator;
 use GDO\Core\GDT_Template;
+use GDO\UI\GDT_Panel;
+use GDO\Core\GDT_Response;
+use GDO\UI\GDT_Message;
 
 class Form extends MethodForm
 {
@@ -30,13 +33,30 @@ class Form extends MethodForm
 	
 	public function getUserType() { return 'ghost'; }
 	
+	public function renderPage()
+	{
+	    if (Module_Register::instance()->cfgAdminActivation())
+	    {
+	        $response = GDT_Response::makeWith(GDT_Panel::make()->html(t('moderation_info')));
+	        return $response->add(parent::renderPage());
+	    }
+	    return parent::renderPage();
+	}
+	
 	public function createForm(GDT_Form $form)
 	{
 		$module = Module_Register::instance();
+		
+		if ($module->cfgAdminActivationTest())
+		{
+		    $form->addField(GDT_Message::make('ua_message')->label('user_signup_text'));
+		}
+		
 		$form->addField(GDT_Username::make('user_name')->required());
 		$form->addField(GDT_Validator::make()->validator('user_name', [$this, 'validateUniqueUsername']));
 		$form->addField(GDT_Validator::make()->validator('user_name', [$this, 'validateUniqueIP']));
 		$form->addField(GDT_Password::make('user_password')->required());
+		
 		if ($module->cfgPasswordRetype())
 		{
 			$form->addField(GDT_Password::make('password_retype')->required()->label('password_retype'));
@@ -138,7 +158,7 @@ class Form extends MethodForm
 	{
 		$module = Module_Register::instance();
 		$mail = new Mail();
-		$mail->setSubject(t('mail_activate_title', [sitename()]));
+		$mail->setSubject(t('mail_activate_subj', [sitename()]));
 		$body = $this->getMailBody($activation);
 // 		$args = array($activation->getUsername(), sitename(), $activation->getUrl());
 		$mail->setBody($body);

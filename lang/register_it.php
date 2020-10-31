@@ -41,8 +41,19 @@ return array(
 #############################################################################
 'mail_activate_title' => '[%s] Attivare il conto',
 #############################################################################
-'mdescr_register_form' => 'Register',
-'mdescr_register_guest' => 'Register as guest',
-'mdescr_register_tos' => 'Terms of service',
-	
+'mdescr_register_form' => 'Registrazione',
+'mdescr_register_guest' => 'Registrati come ospite',
+'mdescr_register_tos' => 'Termini di servizio',
+#############################################################################
+'moderation_info' => 'La registrazione attualmente richiede l\'attivazione da parte di un amministratore. Chiediamo pazienza.',
+'msg_registration_confirmed_but_moderation' => 'Hai confermato la tua e-mail e ora stai aspettando l\'attivazione da parte di un amministratore.',
+'mail_moderate_subj' => '%s: Nuova registrazione',
+'mail_activate2_subj' => '%s: Account attivato',
+'user_signup_text' => 'Per favore scrivi qualcosa su di te',
+'cfg_admin_activation_test' => 'Gli utenti dovrebbero scrivere prima qualcosa su se stessi?',
+'link_activations' => 'Attivazioni in attesa',
+'ua_email_confirmed' => 'Email confermata',
+'msg_already_confirmed' => 'La tua email è già stata confermata. Ora dovrai attendere che un amministratore attivi il tuo account.',
+'btn_activate' => 'Attivare',
+'msg_user_activated' => 'L\'utente %s è stato attivato con successo.',
 );

@@ -3,9 +3,7 @@ namespace GDO\Register\Method;
 
 use GDO\Core\Method;
 use GDO\Core\MethodAdmin;
-use GDO\Core\GDT_Response;
-use GDO\UI\GDT_Bar;
-use GDO\UI\GDT_Link;
+use GDO\Register\Module_Register;
 
 /**
  * Show a menu of admin options for the register module.
@@ -14,16 +12,16 @@ use GDO\UI\GDT_Link;
 final class Admin extends Method
 {
 	use MethodAdmin;
-	public function execute()
+	
+	public function beforeExecute()
 	{
-		# Admin menu
-		$menu = GDT_Bar::make()->horizontal();
-		$menu->addField(GDT_Link::make('link_register_activations')->href(href('Register', 'Activations')));
-		$response = GDT_Response::makeWith($menu);
-		
-		# Tabs first
-		$tabs = $this->renderNavBar('Register');
-		return $tabs->add($response);
+	    $this->renderNavBar('Register');
+	    Module_Register::instance()->renderAdminBar();
 	}
-
+	
+    public function execute()
+    {
+        # Intentionally left clear atm.
+    }
+	
 }
