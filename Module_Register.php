@@ -44,7 +44,7 @@ class Module_Register extends GDO_Module
 	### Module ###
 	##############
 	public function getDependencies() { return ['Cronjob']; }
-	public function getClasses() { return array('GDO\Register\GDO_UserActivation'); }
+	public function getClasses() { return [GDO_UserActivation::class]; }
 	public function onLoadLanguage() { $this->loadLanguage('lang/register'); }
 	public function href_administrate_module() { return href('Register', 'Admin'); }
 
@@ -53,7 +53,7 @@ class Module_Register extends GDO_Module
 	##############
 	public function getConfig()
 	{
-		return array(
+		return [
 			GDT_Checkbox::make('captcha')->initial('1'),
 			GDT_Checkbox::make('guest_signup')->initial('1'),
 			GDT_Checkbox::make('email_activation')->initial('1'),
@@ -69,7 +69,8 @@ class Module_Register extends GDO_Module
 			GDT_Checkbox::make('signup_password_retype')->initial('1'),
 			GDT_Email::make('signup_mail_sender')->initial(GWF_BOT_EMAIL),
 			GDT_Realname::make('signup_mail_sender_name')->icon('email')->initial(GWF_BOT_NAME),
-		);
+		    GDT_Checkbox::make('right_bar')->initial('1'),
+		];
 	}
 	public function cfgCaptcha() { return $this->getConfigValue('captcha'); }
 	public function cfgGuestSignup() { return $this->getConfigValue('guest_signup'); }
@@ -86,18 +87,26 @@ class Module_Register extends GDO_Module
 	public function cfgPasswordRetype() { return $this->getConfigValue('signup_password_retype'); }
 	public function cfgMailSender() { return $this->getConfigVar('signup_mail_sender'); }
 	public function cfgMailSenderName() { return $this->getConfigVar('signup_mail_sender_name'); }
+	public function cfgRightBar() { return $this->getConfigValue('right_bar'); }
 	
-	################
-	### Top Menu ###
-	################
-	public function hookRightBar(GDT_Bar $navbar)
+	############
+	### Init ###
+	############
+	public function onInitSidebar()
 	{
-		if (GDO_Session::user()->isGhost())
-		{
-			$navbar->addField(GDT_Link::make('btn_register')->href(href('Register', 'Form')));
-		}
+// 	    if ($this->cfgRightBar())
+	    {
+    		if (GDO_Session::user()->isGhost())
+    		{
+    	        $navbar = GDT_Page::$INSTANCE->rightNav;
+    			$navbar->addField(GDT_Link::make('btn_register')->href(href('Register', 'Form')));
+    		}
+	    }
 	}
-	
+
+	##################
+	### Admin tabs ###
+	##################
 	public function renderAdminBar()
 	{
 	    $tabs = GDT_Bar::make()->horizontal();
