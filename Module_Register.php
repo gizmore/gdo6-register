@@ -38,7 +38,7 @@ use GDO\User\GDT_Realname;
  */
 class Module_Register extends GDO_Module
 {
-    public $module_priority = 90;
+    public $module_priority = 40;
     
 	##############
 	### Module ###
