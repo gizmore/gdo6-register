@@ -16,7 +16,7 @@ final class Cronjob extends MethodCronjob
 		if (0 != ($timeout = $module->cfgEmailActivationTimeout()))
 		{
 		    $cut = Time::getDate(Application::$TIME - $timeout);
-			GDO_UserActivation::table()->deleteWhere("ua_time < '$cut'")->exec();
+			GDO_UserActivation::table()->deleteWhere("ua_time < '$cut'");
 			if ($affected = Database::instance()->affectedRows())
 			{
 				$this->logNotice("Deleted $affected old user activations.");
