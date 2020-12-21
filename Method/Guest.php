@@ -18,12 +18,15 @@ use GDO\Util\Common;
 
 /**
  * Implements guest signup.
+ * Turns a ghost into a user with a guest name. Bound forever to his session until he upgrades.
  * Uses the register form to validate variables that are similiar to it.
+ * 
  * - Validate Mass signup via IP
  * - Validate TOS checkbox
  * 
+ * @todo: Implement guest upgrade.
  * @author gizmore
- * @version 6.07
+ * @version 6.10
  * @since 6.00
  * @see Form
  */
@@ -89,4 +92,5 @@ class Guest extends MethodForm
 		}
 		return $this->message('msg_registered_as_guest', [$user->displayNameLabel()])->add($authResponse);
 	}
+
 }

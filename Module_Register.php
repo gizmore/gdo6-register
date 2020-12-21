@@ -119,10 +119,12 @@ class Module_Register extends GDO_Module
 	##################
 	public function hookLoginForm(GDT_Form $form)
 	{
-		$form->addField(GDT_Button::make('link_register')->secondary()->href(href('Register', 'Form')));
+	    /** @var $cont \GDO\UI\GDT_Container **/
+	    $cont = $form->getField('btncont');
+	    $cont->addField(GDT_Button::make('link_register')->secondary()->href(href('Register', 'Form')));
 		if ($this->cfgGuestSignup())
 		{
-			$form->addField(GDT_Button::make('link_register_guest')->secondary()->href(href('Register', 'Guest')));
+			$cont->addField(GDT_Button::make('link_register_guest')->secondary()->href(href('Register', 'Guest')));
 		}
 	}
 	
