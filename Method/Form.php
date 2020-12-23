@@ -26,6 +26,8 @@ use GDO\Core\GDT_Template;
 use GDO\UI\GDT_Panel;
 use GDO\Core\GDT_Response;
 use GDO\UI\GDT_Message;
+use GDO\UI\GDT_Container;
+use GDO\UI\GDT_Bar;
 
 class Form extends MethodForm
 {
@@ -76,8 +78,11 @@ class Form extends MethodForm
 		{
 			$form->addField(GDT_Captcha::make('captcha'));
 		}
-		$form->addField(GDT_Submit::make()->label('btn_register'));
 		$form->addField(GDT_AntiCSRF::make());
+
+		$cont = GDT_Bar::make('btncont')->horizontal();
+		$cont->addField(GDT_Submit::make()->label('btn_register'));
+		$form->addField($cont);
 		
 		GDT_Hook::callHook('RegisterForm', $form);
 	}

@@ -16,6 +16,9 @@ final class RegisterTest extends TestCase
 {
     public function testSuccess()
     {
+        # register only works as ghost
+        $this->userGhost();
+        
         # Config for easy registration
         $module = Module_Register::instance();
         $module->saveConfigValue('signup_password_retype', false);
@@ -29,12 +32,13 @@ final class RegisterTest extends TestCase
             'user_password' => '11111111',
         ];
         $response = MethodTest::make()->method($method)->parameters($parameters)->execute();
-        assert($response->code === 200);
+        assertEquals(200, $response->code, "Check if registration works");
     }
     
     public function testGuest()
     {
-        GDO_User::$CURRENT = GDO_User::ghost();
+        # Another attempt which will not work.
+        $this->userGhost();
         
         $method = Guest::make();
         $parameters = ['user_guest_name' => 'Casper'];
@@ -56,9 +60,10 @@ final class RegisterTest extends TestCase
         $parameters = [
             'user_name' => 'Peter2',
             'user_password' => '11111111',
+            'tos' => '2', # 2 is undetermined.
         ];
         MethodTest::make()->method($method)->parameters($parameters)->execute();
-        assertNotNull($method->gdoParameter('tos')->error, 'Check if ToS checkbox prevents signup.');
+        assertNotNull($method->getForm()->getField('tos')->error, 'Check if ToS checkbox prevents signup.');
     }
     
 }
