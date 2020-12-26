@@ -48,12 +48,15 @@ final class RegisterTest extends TestCase
         MethodTest::$USERS[] = $user = GDO_User::$CURRENT;
         assertEquals('Casper', $user->getGuestName(), 'Check if guest register was success.');
         
-        GDO_User::$CURRENT = Module_Core::instance()->cfgSystemUser();
+        $user = Module_Core::instance()->cfgSystemUser();
         assertEquals('system', $user->getType(), 'Check if system user is still there.');
     }
     
     public function testTOSFailed()
     {
+        # Another attempt which will not work.
+        $this->userGhost();
+        
         $module = Module_Register::instance();
         $module->saveConfigValue('force_tos', true);
         $method = Form::make();

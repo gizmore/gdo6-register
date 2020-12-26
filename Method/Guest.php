@@ -74,7 +74,8 @@ class Guest extends MethodForm
 	
 	public function formValidated(GDT_Form $form)
 	{
-		$user = GDO_User::table()->blank($form->getFormData());
+	    $data = $form->getFormData();
+		$user = GDO_User::table()->blank($data);
 		$user->setVars(array(
 			'user_type' => GDO_User::GUEST,
 			'user_register_ip' => GDT_IP::current(),
