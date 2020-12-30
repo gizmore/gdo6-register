@@ -26,7 +26,6 @@ use GDO\Core\GDT_Template;
 use GDO\UI\GDT_Panel;
 use GDO\Core\GDT_Response;
 use GDO\UI\GDT_Message;
-use GDO\UI\GDT_Container;
 use GDO\UI\GDT_Bar;
 
 class Form extends MethodForm

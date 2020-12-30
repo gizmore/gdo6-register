@@ -14,6 +14,7 @@ use GDO\Form\GDT_Form;
 use GDO\UI\GDT_Button;
 use GDO\Mail\GDT_Email;
 use GDO\User\GDT_Realname;
+use GDO\Core\Module_Core;
 
 /**
  * Registration module.
@@ -73,7 +74,7 @@ class Module_Register extends GDO_Module
 		];
 	}
 	public function cfgCaptcha() { return $this->getConfigValue('captcha'); }
-	public function cfgGuestSignup() { return $this->getConfigValue('guest_signup'); }
+	public function cfgGuestSignup() { return Module_Core::instance()->cfgAllowGuests() && $this->getConfigValue('guest_signup'); }
 	public function cfgEmailActivation() { return $this->getConfigValue('email_activation'); }
 	public function cfgEmailActivationTimeout() { return $this->getConfigValue('email_activation_timeout'); }
 	public function cfgAdminActivation() { return $this->getConfigValue('admin_activation'); }
