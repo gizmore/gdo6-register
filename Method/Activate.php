@@ -88,8 +88,7 @@ class Activate extends Method
         		# Login after Activation
         		if (Module_Register::instance()->cfgActivationLogin())
         		{
-        			Form::make()->loginSuccess($user);
-        			$this->message('msg_authenticated', [$user->displayName()]);
+        			return Form::make()->loginSuccess($user);
         		}
     		}
 		}
