@@ -39,7 +39,7 @@ return array(
 'link_register' => 'Per arrivare alle registrazione',
 'link_register_guest' => 'Procedere come ospite',
 #############################################################################
-'mail_activate_title' => '[%s] Attivare il conto',
+'mail_activate_subj' => '[%s] Attivare il conto',
 #############################################################################
 'mdescr_register_form' => 'Registrazione',
 'mdescr_register_guest' => 'Registrati come ospite',
