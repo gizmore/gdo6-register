@@ -47,7 +47,7 @@ class Activate extends Method
 		$id = GDO::quoteS($id);
 		$token = GDO::quoteS($token);
 		$convert = $this->convertGuest();
-		if (!($activation = GDO_UserActivation::table()->findWhere("ua_id={$id} AND ua_token={$token}")))
+		if (!($activation = GDO_UserActivation::table()->getWhere("ua_id={$id} AND ua_token={$token}")))
 		{
 			return $this->error('err_token');
 		}
