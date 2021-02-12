@@ -58,7 +58,7 @@ class Guest extends MethodForm
 		{
 			$form->addField(GDT_Captcha::make());
 		}
-		$form->addField(GDT_Submit::make()->label('btn_signup_guest'));
+		$form->actions()->addField(GDT_Submit::make()->label('btn_signup_guest'));
 		$form->addField(GDT_AntiCSRF::make());
 		GDT_Hook::callHook('GuestForm', $form);
 	}

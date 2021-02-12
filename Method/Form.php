@@ -79,9 +79,7 @@ class Form extends MethodForm
 		}
 		$form->addField(GDT_AntiCSRF::make());
 
-		$cont = GDT_Bar::make('btncont')->horizontal();
-		$cont->addField(GDT_Submit::make()->label('btn_register'));
-		$form->addField($cont);
+		$form->actions()->addField(GDT_Submit::make()->label('btn_register'));
 		
 		GDT_Hook::callHook('RegisterForm', $form);
 	}
