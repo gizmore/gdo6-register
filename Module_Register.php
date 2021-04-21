@@ -1,6 +1,7 @@
 <?php
 namespace GDO\Register;
 
+use GDO\Core\Application;
 use GDO\Core\GDO_Module;
 use GDO\Date\GDT_Duration;
 use GDO\Net\GDT_Url;
@@ -110,9 +111,12 @@ class Module_Register extends GDO_Module
 	##################
 	public function renderAdminBar()
 	{
-	    $tabs = GDT_Bar::make()->horizontal();
-	    $tabs->addField(GDT_Link::make('link_activations')->href(href('Register', 'Activations')));
-	    GDT_Page::$INSTANCE->topTabs->addField($tabs);
+	    if (Application::instance()->isHTML())
+	    {
+    	    $tabs = GDT_Bar::make()->horizontal();
+    	    $tabs->addField(GDT_Link::make('link_activations')->href(href('Register', 'Activations')));
+    	    GDT_Page::$INSTANCE->topTabs->addField($tabs);
+	    }
 	}
 	
 	##################
