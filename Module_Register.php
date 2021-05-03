@@ -32,8 +32,8 @@ use GDO\Core\Module_Core;
  * @TODO Guest to Member conversion.
  *
  * @author gizmore
- * @version 6.10
- * @since 3.00
+ * @version 6.10.1
+ * @since 3.0.0
  * 
  * @see Module_ActivationAlert
  * @see GDO_UserActivation
@@ -65,8 +65,8 @@ class Module_Register extends GDO_Module
 		    GDT_Int::make('ip_signup_count')->initial('2')->min(0)->max(100),
 			GDT_Duration::make('ip_signup_duration')->initial('24h')->min(0)->max(31536000),
 			GDT_Checkbox::make('force_tos')->initial('1'),
-			GDT_Url::make('tos_url')->reachable()->allowLocal()->initial(href('Register', 'TOS')),
-			GDT_Url::make('privacy_url')->reachable()->allowLocal()->initial(href('Core', 'Privacy')),
+			GDT_Url::make('tos_url')->reachable()->allowLocal()->initial(href('Register', 'TOS', '', false)),
+			GDT_Url::make('privacy_url')->reachable()->allowLocal()->initial(href('Core', 'Privacy', '', false)),
 			GDT_Checkbox::make('activation_login')->initial('1'),
 			GDT_Checkbox::make('signup_password_retype')->initial('1'),
 			GDT_Email::make('signup_mail_sender')->initial(GWF_BOT_EMAIL),
@@ -96,7 +96,7 @@ class Module_Register extends GDO_Module
 	############
 	public function onInitSidebar()
 	{
-// 	    if ($this->cfgRightBar())
+	    if ($this->cfgRightBar())
 	    {
     		if (GDO_Session::user()->isGhost())
     		{
@@ -124,7 +124,6 @@ class Module_Register extends GDO_Module
 	##################
 	public function hookLoginForm(GDT_Form $form)
 	{
-	    /** @var $cont \GDO\UI\GDT_Container **/
 	    $form->actions()->addField(GDT_Button::make('link_register')->secondary()->href(href('Register', 'Form')));
 		if ($this->cfgGuestSignup())
 		{

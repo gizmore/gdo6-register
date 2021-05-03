@@ -26,8 +26,13 @@ use GDO\Core\GDT_Template;
 use GDO\UI\GDT_Panel;
 use GDO\Core\GDT_Response;
 use GDO\UI\GDT_Message;
-use GDO\UI\GDT_Bar;
 
+/**
+ * Registration form.
+ * @author gizmore
+ * @version 6.10.1
+ * @since 3.0.0
+ */
 class Form extends MethodForm
 {
 	public function isUserRequired() { return false; }
@@ -161,9 +166,7 @@ class Form extends MethodForm
 		$module = Module_Register::instance();
 		$mail = new Mail();
 		$mail->setSubject(t('mail_activate_subj', [sitename()]));
-		$body = $this->getMailBody($activation);
-// 		$args = array($activation->getUsername(), sitename(), $activation->getUrl());
-		$mail->setBody($body);
+		$mail->setBody($this->getMailBody($activation));
 		$mail->setSender($module->cfgMailSender());
 		$mail->setSenderName($module->cfgMailSenderName());
 		$mail->setReceiver($activation->getEmail());
@@ -173,10 +176,10 @@ class Form extends MethodForm
 	
 	public function getMailBody(GDO_UserActivation $activation)
 	{
-		$tVars = array(
+		$tVars = [
 			'username' => $activation->getUsername(),
 			'activation_url' => $activation->getUrl(),
-		);
+		];
 		return GDT_Template::php('Register', 'mail/activate.php', $tVars);
 	}
 	
