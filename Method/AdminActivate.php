@@ -57,7 +57,7 @@ final class AdminActivate extends Method
 	    $tVars = array(
 	        'username' => $user->displayNameLabel(),
 	        'admin' => GDO_User::current()->displayNameLabel(),
-	        'url' => url(GWF_MODULE, GWF_METHOD),
+	        'url' => url(GDO_MODULE, GDO_METHOD),
 	    );
 	    $old = Trans::$ISO;
 	    Trans::setISO($user->getLangISO());

@@ -15,7 +15,6 @@ use GDO\Form\GDT_Form;
 use GDO\UI\GDT_Button;
 use GDO\Mail\GDT_Email;
 use GDO\User\GDT_Realname;
-use GDO\Core\Module_Core;
 
 /**
  * Registration module.
@@ -69,13 +68,13 @@ class Module_Register extends GDO_Module
 			GDT_Url::make('privacy_url')->reachable()->allowLocal()->initial(href('Core', 'Privacy', '', false)),
 			GDT_Checkbox::make('activation_login')->initial('1'),
 			GDT_Checkbox::make('signup_password_retype')->initial('1'),
-			GDT_Email::make('signup_mail_sender')->initial(GWF_BOT_EMAIL),
-			GDT_Realname::make('signup_mail_sender_name')->icon('email')->initial(GWF_BOT_NAME),
+			GDT_Email::make('signup_mail_sender')->initial(GDO_BOT_EMAIL),
+			GDT_Realname::make('signup_mail_sender_name')->icon('email')->initial(GDO_BOT_NAME),
 		    GDT_Checkbox::make('right_bar')->initial('1'),
 		];
 	}
 	public function cfgCaptcha() { return $this->getConfigValue('captcha'); }
-	public function cfgGuestSignup() { return Module_Core::instance()->cfgAllowGuests() && $this->getConfigValue('guest_signup'); }
+	public function cfgGuestSignup() { return $this->getConfigValue('guest_signup'); }
 	public function cfgEmailActivation() { return $this->getConfigValue('email_activation'); }
 	public function cfgEmailActivationTimeout() { return $this->getConfigValue('email_activation_timeout'); }
 	public function cfgAdminActivation() { return $this->getConfigValue('admin_activation'); }
