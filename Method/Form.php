@@ -44,7 +44,7 @@ class Form extends MethodForm
 	    if (Module_Register::instance()->cfgAdminActivation())
 	    {
 	        $response = GDT_Response::makeWith(GDT_Panel::make()->html(t('moderation_info')));
-	        return $response->add(parent::renderPage());
+	        return $response->addField(parent::renderPage());
 	    }
 	    return parent::renderPage();
 	}

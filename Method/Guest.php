@@ -89,9 +89,9 @@ class Guest extends MethodForm
 		
 		if ($backto = Common::getRequestString('backto'))
 		{
-			return $this->message('msg_registered_as_guest_back', [$user->displayNameLabel(), $backto])->add($authResponse);
+			return $this->message('msg_registered_as_guest_back', [$user->displayNameLabel(), $backto])->addField($authResponse);
 		}
-		return $this->message('msg_registered_as_guest', [$user->displayNameLabel()])->add($authResponse);
+		return $this->message('msg_registered_as_guest', [$user->displayNameLabel()])->addField($authResponse);
 	}
 
 }
