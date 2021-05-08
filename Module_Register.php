@@ -73,7 +73,7 @@ class Module_Register extends GDO_Module
 		    GDT_Checkbox::make('right_bar')->initial('1'),
 		];
 	}
-	public function cfgCaptcha() { return $this->getConfigValue('captcha'); }
+	public function cfgCaptcha() { return module_enabled('Captcha') && $this->getConfigValue('captcha'); }
 	public function cfgGuestSignup() { return $this->getConfigValue('guest_signup'); }
 	public function cfgEmailActivation() { return $this->getConfigValue('email_activation'); }
 	public function cfgEmailActivationTimeout() { return $this->getConfigValue('email_activation_timeout'); }
