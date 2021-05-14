@@ -45,7 +45,7 @@ final class RegisterTest extends TestCase
         MethodTest::make()->method($method)->parameters($parameters)->execute();
         assertEquals(GDT_Response::$CODE, 200);
         
-        MethodTest::$USERS[] = $user = GDO_User::$CURRENT;
+        MethodTest::$USERS[] = $user = GDO_User::current();
         assertEquals('Casper', $user->getGuestName(), 'Check if guest register was success.');
         
         $user = Module_Core::instance()->cfgSystemUser();
