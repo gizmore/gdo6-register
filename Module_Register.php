@@ -8,13 +8,14 @@ use GDO\Net\GDT_Url;
 use GDO\UI\GDT_Bar;
 use GDO\UI\GDT_Page;
 use GDO\DB\GDT_Checkbox;
-use GDO\DB\GDT_Int;
 use GDO\UI\GDT_Link;
 use GDO\Session\GDO_Session;
 use GDO\Form\GDT_Form;
 use GDO\UI\GDT_Button;
 use GDO\Mail\GDT_Email;
 use GDO\User\GDT_Realname;
+use GDO\Net\GDT_IP;
+use GDO\DB\GDT_UInt;
 
 /**
  * Registration module.
@@ -31,7 +32,7 @@ use GDO\User\GDT_Realname;
  * @TODO Guest to Member conversion.
  *
  * @author gizmore
- * @version 6.10.1
+ * @version 6.10.3
  * @since 3.0.0
  * 
  * @see Module_ActivationAlert
@@ -61,8 +62,9 @@ class Module_Register extends GDO_Module
 			GDT_Duration::make('email_activation_timeout')->initial("2h")->min(0)->max(31536000),
 		    GDT_Checkbox::make('admin_activation')->initial('0'),
 		    GDT_Checkbox::make('admin_activation_test')->initial('0'),
-		    GDT_Int::make('ip_signup_count')->initial('2')->min(0)->max(100),
-			GDT_Duration::make('ip_signup_duration')->initial('24h')->min(0)->max(31536000),
+		    GDT_UInt::make('ip_signup_count')->initial('2')->min(0)->max(100),
+		    GDT_UInt::make('local_ip_signup_count')->initial('100000')->min(0)->max(100000),
+		    GDT_Duration::make('ip_signup_duration')->initial('24h')->min(0)->max(31536000),
 			GDT_Checkbox::make('force_tos')->initial('1'),
 			GDT_Url::make('tos_url')->reachable()->allowLocal()->initial(href('Register', 'TOS', '', false)),
 			GDT_Url::make('privacy_url')->reachable()->allowLocal()->initial(href('Core', 'Privacy', '', false)),
@@ -79,7 +81,12 @@ class Module_Register extends GDO_Module
 	public function cfgEmailActivationTimeout() { return $this->getConfigValue('email_activation_timeout'); }
 	public function cfgAdminActivation() { return $this->getConfigValue('admin_activation'); }
 	public function cfgAdminActivationTest() { return $this->getConfigValue('admin_activation_test'); }
-	public function cfgMaxUsersPerIP() { return $this->getConfigValue('ip_signup_count'); }
+	public function cfgMaxUsersPerIP()
+	{
+	    return GDT_IP::isLocal() ? 
+	        $this->getConfigValue('local_ip_signup_count') :
+	        $this->getConfigValue('ip_signup_count');
+	}
 	public function cfgMaxUsersPerIPTimeout() { return $this->getConfigValue('ip_signup_duration'); }
 	public function cfgTermsOfService() { return $this->getConfigValue('force_tos'); }
 	public function cfgTosUrl() { return $this->getConfigVar('tos_url'); }
