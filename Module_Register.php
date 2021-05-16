@@ -9,7 +9,7 @@ use GDO\UI\GDT_Bar;
 use GDO\UI\GDT_Page;
 use GDO\DB\GDT_Checkbox;
 use GDO\UI\GDT_Link;
-use GDO\Session\GDO_Session;
+use GDO\User\GDO_User;
 use GDO\Form\GDT_Form;
 use GDO\UI\GDT_Button;
 use GDO\Mail\GDT_Email;
@@ -104,7 +104,7 @@ class Module_Register extends GDO_Module
 	{
 	    if ($this->cfgRightBar())
 	    {
-    		if (GDO_Session::user()->isGhost())
+    		if (GDO_User::current()->isGhost())
     		{
     	        $navbar = GDT_Page::$INSTANCE->rightNav;
     			$navbar->addField(GDT_Link::make('btn_register')->href(href('Register', 'Form')));
