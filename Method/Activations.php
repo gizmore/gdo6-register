@@ -46,4 +46,6 @@ final class Activations extends MethodQueryTable
 		];
 	}
 	
+	public function getTitleLangKey() { return 'link_activations'; }
+
 }

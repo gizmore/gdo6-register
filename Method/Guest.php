@@ -34,7 +34,7 @@ class Guest extends MethodForm
 {
 	public function isUserRequired() { return false; }
 	
-	public function getUserType() { return 'ghost'; }
+	public function getUserType() { return ['guest', 'ghost']; }
 	
 	public function isEnabled()
 	{
@@ -74,14 +74,13 @@ class Guest extends MethodForm
 	
 	public function formValidated(GDT_Form $form)
 	{
-	    $data = $form->getFormData();
-		$user = GDO_User::table()->blank($data);
-		$user->setVars(array(
+		$user = GDO_User::current();
+		$user->persistent()->saveVars(array(
+		    'user_guest_name' => $form->getFormVar('user_guest_name'),
 			'user_type' => GDO_User::GUEST,
 			'user_register_ip' => GDT_IP::current(),
 			'user_register_time' => Time::getDate(),
 		));
-		$user->insert();
 		
 		$authResponse = \GDO\Login\Method\Form::make()->loginSuccess($user);
 

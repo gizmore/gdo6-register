@@ -56,4 +56,5 @@ return array(
 'msg_already_confirmed' => 'Your Email has been confirmed already. You have to wait for an administrator to activate your account.',
 'btn_activate' => 'Activate',
 'msg_user_activated' => 'The user %s has been activated successfully.',
+'list_register_activations' => '%s pending activations',
 );

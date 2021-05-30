@@ -37,7 +37,7 @@ class Form extends MethodForm
 {
 	public function isUserRequired() { return false; }
 	
-	public function getUserType() { return 'ghost'; }
+	public function getUserType() { return ['ghost', 'guest']; }
 	
 	public function renderPage()
 	{
@@ -73,15 +73,20 @@ class Form extends MethodForm
 			$form->addField(GDT_Email::make('user_email')->required());
 			$form->addField(GDT_Validator::make()->validator('user_email', [$this, 'validateUniqueEmail']));
 		}
-		if ($module->cfgTermsOfService())
+		
+		if (!Application::instance()->isCLI())
 		{
-			$form->addField(GDT_Checkbox::make('tos')->required()->label('tos_label', [$module->cfgTosUrl(), $module->cfgPrivacyURL()]));
-			$form->addField(GDT_Validator::make()->validator('tos', [$this, 'validateTOS']));
+    		if ($module->cfgTermsOfService())
+    		{
+    			$form->addField(GDT_Checkbox::make('tos')->required()->label('tos_label', [$module->cfgTosUrl(), $module->cfgPrivacyURL()]));
+    			$form->addField(GDT_Validator::make()->validator('tos', [$this, 'validateTOS']));
+    		}
+    		if ($module->cfgCaptcha())
+    		{
+    			$form->addField(GDT_Captcha::make('captcha'));
+    		}
 		}
-		if ($module->cfgCaptcha())
-		{
-			$form->addField(GDT_Captcha::make('captcha'));
-		}
+
 		$form->addField(GDT_AntiCSRF::make());
 
 		$form->actions()->addField(GDT_Submit::make()->label('btn_register'));

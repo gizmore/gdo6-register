@@ -56,4 +56,5 @@ return array(
 'msg_already_confirmed' => 'La tua email è già stata confermata. Ora dovrai attendere che un amministratore attivi il tuo account.',
 'btn_activate' => 'Attivare',
 'msg_user_activated' => 'L\'utente %s è stato attivato con successo.',
+'list_register_activations' => '%s attivazioni in sospeso',
 );

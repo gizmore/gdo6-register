@@ -104,7 +104,7 @@ class Module_Register extends GDO_Module
 	{
 	    if ($this->cfgRightBar())
 	    {
-    		if (GDO_User::current()->isGhost())
+    		if (!GDO_User::current()->isUser())
     		{
     	        $navbar = GDT_Page::$INSTANCE->rightNav;
     			$navbar->addField(GDT_Link::make('btn_register')->href(href('Register', 'Form')));
