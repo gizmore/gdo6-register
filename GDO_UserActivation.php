@@ -11,7 +11,6 @@ use GDO\DB\GDT_Token;
 use GDO\User\GDT_Username;
 use GDO\Net\GDT_Url;
 use GDO\DB\GDT_DeletedAt;
-use GDO\Date\Time;
 use GDO\Date\GDT_DateTime;
 use GDO\UI\GDT_Message;
 use GDO\Language\GDT_Language;
@@ -55,7 +54,5 @@ class GDO_UserActivation extends GDO
 	public function href_btn_activate() { return href('Register', 'AdminActivate', '&id='.$this->getID()); }
 	
 	public function displayNameLabel() { return $this->getVar('user_name'); }
-	
-	public function markDeleted() { return $this->saveVar('ua_deleted', Time::getDate()); }
 	
 }
