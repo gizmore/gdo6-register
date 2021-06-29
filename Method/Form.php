@@ -43,7 +43,7 @@ class Form extends MethodForm
 	{
 	    if (Module_Register::instance()->cfgAdminActivation())
 	    {
-	        $response = GDT_Response::makeWith(GDT_Panel::make()->html(t('moderation_info')));
+	        $response = GDT_Response::makeWith(GDT_Panel::make()->text('moderation_info'));
 	        return $response->addField(parent::renderPage());
 	    }
 	    return parent::renderPage();
@@ -148,7 +148,7 @@ class Form extends MethodForm
 	{
 		$module = Module_Register::instance();
 		
-		# TODO: GDT_Password should know it comes from form for a save... b 
+		# TODO: GDT_Password should know it comes from form for a save...
 		$password = $form->getField('user_password');
 		$password->var(BCrypt::create($password->getVar())->__toString());
 		
@@ -156,7 +156,11 @@ class Form extends MethodForm
 		$activation->setVar('user_register_ip', GDT_IP::current());
 		$activation->save();
 		
-		if ($module->cfgEmailActivation())
+		if ($module->cfgAdminActivation())
+		{
+		    $this->onAdminActivation($activation);
+		}
+		elseif ($module->cfgEmailActivation())
 		{
 			return $this->onEmailActivation($activation);
 		}
@@ -164,6 +168,11 @@ class Form extends MethodForm
 		{
 			return Activate::make()->activate($activation->getID(), $activation->getToken());
 		}
+	}
+	
+	public function onAdminActivation(GDO_UserActivation $activation)
+	{
+	    
 	}
 	
 	public function onEmailActivation(GDO_UserActivation $activation)

@@ -15,6 +15,7 @@ use GDO\Date\GDT_DateTime;
 use GDO\UI\GDT_Message;
 use GDO\Language\GDT_Language;
 use GDO\Language\Trans;
+use GDO\Core\GDT_Serialize;
 
 class GDO_UserActivation extends GDO
 {
@@ -36,6 +37,8 @@ class GDO_UserActivation extends GDO
 			GDT_Password::make('user_password')->notNull(),
 			GDT_Email::make('user_email'),
 			GDT_IP::make('user_register_ip')->notNull(),
+		    
+// 		    GDT_Serialize::make('ua_')
 		);
 	}
 	
