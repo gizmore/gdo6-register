@@ -57,4 +57,6 @@ return array(
 'btn_activate' => 'Attivare',
 'msg_user_activated' => 'L\'utente %s è stato attivato con successo.',
 'list_register_activations' => '%s attivazioni in sospeso',
+#############################################################################
+'msg_admin_will_activate_you' => 'Un\'e-mail è stata inviata agli amministratori con una copia per te. Non appena sarai stato attivato riceverai un\'altra email.',
 );

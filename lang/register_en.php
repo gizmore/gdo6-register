@@ -57,4 +57,6 @@ return array(
 'btn_activate' => 'Activate',
 'msg_user_activated' => 'The user %s has been activated successfully.',
 'list_register_activations' => '%s pending activations',
+#################################################################
+'msg_admin_will_activate_you' => 'An email has been sent tothe administrators with a copy for you. As soon as you have been activated, you will receive another email.',
 );

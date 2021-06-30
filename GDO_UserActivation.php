@@ -2,6 +2,7 @@
 namespace GDO\Register;
 
 use GDO\Core\GDO;
+use GDO\Core\GDT_Serialize;
 use GDO\DB\GDT_AutoInc;
 use GDO\DB\GDT_CreatedAt;
 use GDO\Mail\GDT_Email;
@@ -15,8 +16,11 @@ use GDO\Date\GDT_DateTime;
 use GDO\UI\GDT_Message;
 use GDO\Language\GDT_Language;
 use GDO\Language\Trans;
-use GDO\Core\GDT_Serialize;
 
+/**
+ * User activation table.
+ * @author gizmore
+ */
 class GDO_UserActivation extends GDO
 {
 	public function gdoCached() { return false; }
@@ -38,7 +42,7 @@ class GDO_UserActivation extends GDO
 			GDT_Email::make('user_email'),
 			GDT_IP::make('user_register_ip')->notNull(),
 		    
-// 		    GDT_Serialize::make('ua_')
+		    GDT_Serialize::make('ua_data'),
 		);
 	}
 	

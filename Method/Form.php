@@ -30,7 +30,7 @@ use GDO\UI\GDT_Message;
 /**
  * Registration form.
  * @author gizmore
- * @version 6.10.1
+ * @version 6.10.4
  * @since 3.0.0
  */
 class Form extends MethodForm
@@ -68,7 +68,7 @@ class Form extends MethodForm
 			$form->addField(GDT_Password::make('password_retype')->required()->label('password_retype'));
 			$form->addField(GDT_Validator::make()->validator('password_retype', [$this, 'validatePasswordRetype']));
 		}
-		if ($module->cfgEmailActivation())
+		if ($module->cfgEmailActivation() || $module->cfgAdminActivation())
 		{
 			$form->addField(GDT_Email::make('user_email')->required());
 			$form->addField(GDT_Validator::make()->validator('user_email', [$this, 'validateUniqueEmail']));
@@ -122,14 +122,13 @@ class Form extends MethodForm
 	public function validateUniqueEmail(GDT_Form $form, GDT_Email $email, $value)
 	{
 		$count = GDO_User::table()->countWhere("user_email=".GDO::quoteS($email->getVar()));
-		return $count === 0 ? true : $email->error('err_email_taken');
+		return $count == 0 ? true : $email->error('err_email_taken');
 	}
 	
 	public function validateTOS(GDT_Form $form, GDT_Checkbox $field)
 	{
 		return $field->getValue() ? true : $field->error('err_tos_not_checked');
 	}
-	
 	
 	public function formInvalid(GDT_Form $form)
 	{
@@ -154,6 +153,7 @@ class Form extends MethodForm
 		
 		$activation = GDO_UserActivation::table()->blank($form->getFormData());
 		$activation->setVar('user_register_ip', GDT_IP::current());
+		GDT_Hook::callHook('OnRegister', $form, $activation);
 		$activation->save();
 		
 		if ($module->cfgAdminActivation())
@@ -170,11 +170,54 @@ class Form extends MethodForm
 		}
 	}
 	
+	########################
+	### Admin Activation ###
+	########################
 	public function onAdminActivation(GDO_UserActivation $activation)
 	{
+	    GDT_Hook::callHook('OnAdminActivation', $activation);
+	    $this->onEmailAdminsActivation($activation);
+	    $this->onEmailUserAdminActivation($activation);
+	    return $this->message('msg_admin_will_activate_you');
+	}
+	
+	public function onEmailUserAdminActivation(GDO_UserActivation $activation)
+	{
+	    $mail = Mail::botMail();
+	    $mail->setReceiver($activation->getEmail());
+	    $mail->setReceiverName($activation->getUsername());
+	    $mail->setSubject(t('mail_subj_user_admin_activation'));
+	    $args = [
+	    ];
+	    $mail->setBody(t('mail_body_user_admin_activation', $args));
+	    $mail->sendAsHTML();
 	    
 	}
 	
+	
+	public function onEmailAdminsActivation(GDO_UserActivation $activation)
+	{
+	    foreach (GDO_User::staff() as $admin)
+	    {
+	        $this->onEmailAdminActivation($admin, $activation);
+	    }
+	}
+	    
+	public function onEmailAdminActivation(GDO_User $user, GDO_UserActivation $activation)
+	{
+	    $mail = Mail::botMail();
+	    $mail->setSubject(tusr($user, 'mail_subj_admin_activation'));
+	    $args = [
+	        
+	    ];
+	    $mail->setBody(tusr($user, 'mail_body_admin_activation', $args));
+	    $mail->sendToUser($user);
+	}
+	
+	
+	########################
+	### Email Activation ###
+	########################
 	public function onEmailActivation(GDO_UserActivation $activation)
 	{
 		$module = Module_Register::instance();
