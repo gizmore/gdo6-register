@@ -84,7 +84,7 @@ class Guest extends MethodForm
 		
 		$authResponse = \GDO\Login\Method\Form::make()->loginSuccess($user);
 
-		GDT_Hook::callWithIPC('UserActivated', $user);
+		GDT_Hook::callWithIPC('UserActivated', $user, null);
 		
 		if ($backto = Common::getRequestString('backto'))
 		{

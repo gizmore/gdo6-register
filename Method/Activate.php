@@ -119,7 +119,7 @@ class Activate extends Method
 	    
 	    $user->save();
 	    
-	    GDT_Hook::callWithIPC('UserActivated', $user);
+	    GDT_Hook::callWithIPC('UserActivated', $user, $activation);
 	    
 	    return $user;
 	}
