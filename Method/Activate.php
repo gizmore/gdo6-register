@@ -133,6 +133,7 @@ class Activate extends Method
 	    {
 	        $this->sendModerationMail($activation, $user);
 	    }
+	    $this->sendModerationInfoMail($activation);
 	}
 	
 	private function sendModerationMail(GDO_UserActivation $activation, GDO_User $user)
@@ -163,5 +164,7 @@ class Activate extends Method
 	    Trans::setISO($old);
 	    return $body;
 	}
+	
+	
 	
 }
