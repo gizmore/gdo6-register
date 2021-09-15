@@ -24,7 +24,7 @@ use GDO\Util\Common;
  * - Validate Mass signup via IP
  * - Validate TOS checkbox
  * 
- * @todo: Implement guest upgrade.
+ * @TODO: Implement guest upgrade.
  * @author gizmore
  * @version 6.10
  * @since 6.00
