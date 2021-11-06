@@ -86,7 +86,7 @@ class Guest extends MethodForm
 
 		GDT_Hook::callWithIPC('UserActivated', $user, null);
 		
-		if ($backto = Common::getRequestString('backto'))
+		if ($backto = Common::getRequestString('_backto'))
 		{
 			return $this->message('msg_registered_as_guest_back', [$user->displayNameLabel(), $backto])->addField($authResponse);
 		}
