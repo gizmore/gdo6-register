@@ -25,7 +25,7 @@ final class AdminActivate extends Method
 	
 	public function execute()
 	{
-		$activation = GDO_UserActivation::table()->find(Common::getGetString('id'));
+		$activation = GDO_UserActivation::table()->find(Common::getRequestString('id'));
 		
 		if ($activation->isDeleted())
 		{
