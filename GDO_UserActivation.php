@@ -12,10 +12,10 @@ use GDO\DB\GDT_Token;
 use GDO\User\GDT_Username;
 use GDO\Net\GDT_Url;
 use GDO\DB\GDT_DeletedAt;
-use GDO\Date\GDT_DateTime;
 use GDO\UI\GDT_Message;
 use GDO\Language\GDT_Language;
 use GDO\Language\Trans;
+use GDO\Date\GDT_Timestamp;
 
 /**
  * User activation table.
@@ -31,7 +31,7 @@ class GDO_UserActivation extends GDO
 			GDT_Token::make('ua_token')->notNull(),
 			GDT_CreatedAt::make('ua_time')->notNull(),
 			GDT_DeletedAt::make('ua_deleted'),
-		    GDT_DateTime::make('ua_email_confirmed'),
+		    GDT_Timestamp::make('ua_email_confirmed'),
 		    
 		    GDT_Message::make('ua_message'),
 

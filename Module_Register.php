@@ -26,13 +26,15 @@ use GDO\DB\GDT_UInt;
  * This module features Guest Signup.
  * This module features Email Activation.
  * This module features Instant Activation.
+ * This module features Moderation Activation.
  * This module features Admin Signup Moderation Activation.
  * This module features Terms of Service and Privacy pages.
+ * This module features TellUsAboutYou moderation
  *
  * @TODO Guest to Member conversion.
  *
  * @author gizmore
- * @version 6.10.3
+ * @version 6.11.0
  * @since 3.0.0
  * 
  * @see Module_ActivationAlert
@@ -62,14 +64,14 @@ class Module_Register extends GDO_Module
 			GDT_Duration::make('email_activation_timeout')->initial("2h")->min(0)->max(31536000),
 		    GDT_Checkbox::make('admin_activation')->initial('0'),
 		    GDT_Checkbox::make('admin_activation_test')->initial('0'),
-		    GDT_UInt::make('ip_signup_count')->initial('2')->min(0)->max(100),
+		    GDT_UInt::make('ip_signup_count')->initial('4')->min(0)->max(100),
 		    GDT_UInt::make('local_ip_signup_count')->initial('100000')->min(0)->max(100000),
 		    GDT_Duration::make('ip_signup_duration')->initial('24h')->min(0)->max(31536000),
 			GDT_Checkbox::make('force_tos')->initial('1'),
-			GDT_Url::make('tos_url')->reachable()->allowLocal()->initial(href('Register', 'TOS', '', false)),
-			GDT_Url::make('privacy_url')->reachable()->allowLocal()->initial(href('Core', 'Privacy', '', false)),
+			GDT_Url::make('tos_url')->reachable()->initial(href('Register', 'TOS', '', false)),
+			GDT_Url::make('privacy_url')->reachable()->initial(href('Core', 'Privacy', '', false)),
 			GDT_Checkbox::make('activation_login')->initial('1'),
-			GDT_Checkbox::make('signup_password_retype')->initial('1'),
+			GDT_Checkbox::make('signup_password_retype')->initial('0'),
 			GDT_Email::make('signup_mail_sender')->initial(GDO_BOT_EMAIL),
 			GDT_Realname::make('signup_mail_sender_name')->icon('email')->initial(GDO_BOT_NAME),
 		    GDT_Checkbox::make('right_bar')->initial('1'),
