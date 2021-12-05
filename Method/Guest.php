@@ -26,8 +26,8 @@ use GDO\Util\Common;
  * 
  * @TODO: Implement guest upgrade.
  * @author gizmore
- * @version 6.10
- * @since 6.00
+ * @version 6.11.0
+ * @since 6.0.0
  * @see Form
  */
 class Guest extends MethodForm
